@@ -1,7 +1,5 @@
 import React from 'react'
 
-const App: React.FC = () => {
+export const EditDocumentation: React.FC = () => {
   return <h1>HELLO WORLD!</h1>
 }
-
-export default App

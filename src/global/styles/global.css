@@ -7,7 +7,56 @@
 }
 
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: var(--font-family-ubuntu),  sans-serif;
+  background-color: var(--color-background-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+input,
+textarea,
+button {
+  color: var(--color-text-white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold);
+}
+
+h1 {
+  font-size: var(--font-size-heading-h1);
+}
+
+h2 {
+  font-size: var(--font-size-heading-h2);
+}
+
+h3 {
+  font-size: var(--font-size-heading-h3);
+}
+
+p,
+span,
+input,
+textarea,
+button {
+  font-weight: var(--font-weight-regular);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-placeholder);
 }
