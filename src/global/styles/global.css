@@ -19,12 +19,15 @@ h3,
 h4,
 h5,
 h6,
+a,
 p,
 span,
 input,
+select,
 textarea,
 button {
   color: var(--color-text-white);
+  font-family: var(--font-family-ubuntu),  sans-serif;
 }
 
 h1,
@@ -59,4 +62,17 @@ button {
 input::placeholder,
 textarea::placeholder {
   color: var(--color-text-placeholder);
+}
+
+textarea {
+  resize: vertical;
+  max-height: 100px;
+}
+
+a {
+  text-decoration: none;
+}
+
+#page_content {
+  padding: 0 1rem;
 }

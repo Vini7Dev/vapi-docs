@@ -1,0 +1,8 @@
+.app_name {
+  display: block;
+  width: 100vw;
+  padding: 1.125rem 0;
+  margin-bottom: 1.75rem;
+  background-color: var(--color-primary);
+  text-align: center;
+}

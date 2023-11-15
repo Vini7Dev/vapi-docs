@@ -1,0 +1,25 @@
+.textarea_container {
+  position: relative;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-primary);
+  width: 100%;
+  padding: 1rem 0.5rem 0;
+}
+
+.textarea_label {
+  top: 0;
+  left: 0;
+  position: absolute;
+  color: var(--color-primary);
+  font-size: var(--font-size-input-label);
+  font-weight: var(--font-weight-bold);
+}
+
+.textarea {
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  border: none;
+  background-color: var(--color-transparent);
+  font-size: var(--font-size-input-text);
+  width: 100%;
+}

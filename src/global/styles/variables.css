@@ -5,10 +5,12 @@
   --color-success: #33B469;
   --color-warn: #EBBC2E;
   --color-danger: #ED3A3A;
+  --color-transparent: transparent;
 
   --color-background-dark: #2C2C2C;
 
   --color-text-white: #FFFFFF;
+  --color-text-white-50: #FFFFFF80;
   --color-text-placeholder: #999999;
 
   --color-method-get: #33B469;

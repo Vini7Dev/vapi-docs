@@ -1,0 +1,25 @@
+.nav_container {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 58px;
+  background-color: var(--color-primary);
+}
+
+.nav_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 400px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.nav_item {
+  color: var(--color-text-white-50);
+}
+
+.nav_item_selected {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-white);
+}
