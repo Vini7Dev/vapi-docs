@@ -36,4 +36,10 @@
   --font-size-input-text: 1rem;
   --font-size-button-text: 1.125rem;
   --font-size-button-text-small: 0.875rem;
+
+  /* SCREEN BREAKPOINTS */
+  --screen-desktop: 1440;
+  --screen-notebook: 1280;
+  --screen-tablet: 768;
+  --screen-mobile: 320;
 }
