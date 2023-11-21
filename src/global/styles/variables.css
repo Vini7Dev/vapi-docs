@@ -7,10 +7,12 @@
   --color-danger: #ED3A3A;
   --color-transparent: transparent;
 
-  --color-background-dark: #2C2C2C;
+  --color-background-sreen: #2C2C2C;
+  --color-background-dark: #222020;
 
   --color-text-white: #FFFFFF;
   --color-text-white-50: #FFFFFF80;
+  --color-text-white-75: #FFFFFFBF;
   --color-text-placeholder: #999999;
 
   --color-method-get: #33B469;
@@ -38,6 +40,10 @@
   --font-size-input-text: 1rem;
   --font-size-button-text: 1.125rem;
   --font-size-button-text-small: 0.875rem;
+
+  --font-size-text: 1rem;
+  --font-size-text-big: 1.125rem;
+  --font-size-text-big-small: 0.875rem;
 
   /* SCREEN BREAKPOINTS */
   --screen-desktop: 1440;

@@ -1,4 +1,4 @@
-.double_inputs_container {
+.edit_core_settings_container .double_inputs_container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -6,11 +6,11 @@
   width: 100%;
 }
 
-.double_inputs_container .big_input {
+.edit_core_settings_container .double_inputs_container .big_input {
   flex: 3;
 }
 
-.double_inputs_container .small_input {
+.edit_core_settings_container .double_inputs_container .small_input {
   flex: 1;
   max-width: 100px;
 }

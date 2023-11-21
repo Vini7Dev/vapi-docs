@@ -1,0 +1,135 @@
+.api_paths_container .create_group_button {
+  margin-top: 28px;
+}
+
+.api_paths_container .path_group_container {
+  margin-top: 32px;
+}
+
+.api_paths_container .path_group_header {
+  display: flex;
+}
+
+.api_paths_container .path_group_name {
+  flex: 1;
+}
+
+.api_paths_container .path_group_edit,
+.api_paths_container .path_item_edit {
+  margin-right: 14px;
+  color: var(--color-warn);
+  background-color: var(--color-transparent);
+  border: none;
+}
+
+.api_paths_container .path_group_delete,
+.api_paths_container .path_item_delete {
+  color: var(--color-danger);
+  background-color: var(--color-transparent);
+  border: none
+}
+
+.api_paths_container .path_group_edit,
+.api_paths_container .path_item_edit,
+.api_paths_container .path_group_delete,
+.api_paths_container .path_item_delete {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-button-text-small);
+}
+
+.api_paths_container .path_group_edit svg,
+.api_paths_container .path_item_edit svg,
+.api_paths_container .path_group_delete svg,
+.api_paths_container .path_item_delete svg {
+  margin-right: 4px;
+}
+
+.api_paths_container .path_item_container {
+  margin-top: 12px;
+  padding: 8px;
+  background-color: var(--color-background-dark);
+  border-radius: 4px;
+  border-bottom: 1px solid transparent;
+}
+
+.api_paths_container .path_item_header,
+.api_paths_container .path_edit_delete_options {
+  display: flex;
+  align-items: center;
+}
+
+.api_paths_container .path_edit_delete_options {
+  justify-content: flex-end;
+}
+
+.api_paths_container .path_method {
+  width: 78px;
+  margin-right: 12px;
+  padding: 4px 16px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.api_paths_container .path_route {
+  margin-right: 16px;
+  font-size: var(--font-size-button-text);
+}
+
+.api_paths_container .path_description {
+  color: var(--color-text-placeholder);
+  font-size: var(--font-size-button-text-small);
+  margin-right: auto;
+}
+
+.api_paths_container .path_content_body {
+  margin: 4px 0;
+}
+
+.api_paths_container .path_item_section {
+  margin-top: 12px;
+  border-bottom: 1px solid transparent;
+}
+
+.api_paths_container .path_item_section.ignore_margin_top {
+  margin-top: 0;
+}
+
+.api_paths_container .path_item_section_title {
+  margin-bottom: 8px;
+  color: var(--color-text-white-75);
+}
+
+.api_paths_container .path_item_specification {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: var(--font-size-text);
+  background-color: var(--color-transparent);
+  border: none;
+}
+
+.api_paths_container .path_item_specification strong {
+  margin-right: 8px;
+  font-weight: var(--font-weight-medium);
+}
+
+.api_paths_container .path_item_specification span {
+  font-size: var(--font-size-text-big-small);
+  color: var(--color-text-placeholder);
+}
+
+.api_paths_container .path_specification_arrow {
+  margin-left: auto;
+}
+
+.api_paths_container .path_item_specification_accordion_content {
+  padding-bottom: 10px;
+}
+
+.api_paths_container .path_item_specification_accordion_content span {
+  font-size: var(--font-size-text-big-small);
+  color: var(--color-text-placeholder);
+}

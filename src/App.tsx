@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { TopBar } from './components/TopBar'
-import { EditCoreSettings } from './pages/EditCoreSettings'
+// import { EditCoreSettings } from './pages/EditCoreSettings'
+import { EditApiPaths } from './pages/EditApiPaths'
 import { NavigationBar } from './components/NavigationBar'
 
 export const App: React.FC = () => {
@@ -9,9 +10,11 @@ export const App: React.FC = () => {
     <>
       <TopBar />
 
-      <div id="page_content">
-        <EditCoreSettings />
-      </div>
+      <main id="page_content">
+        {/* <EditCoreSettings /> */}
+
+        <EditApiPaths />
+      </main>
 
       <NavigationBar />
     </>

@@ -8,7 +8,7 @@
 
 body {
   font-family: var(--font-family-ubuntu),  sans-serif;
-  background-color: var(--color-background-dark);
+  background-color: var(--color-background-sreen);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,6 +22,7 @@ h6,
 a,
 p,
 span,
+strong,
 input,
 select,
 textarea,
@@ -74,5 +75,62 @@ a {
 }
 
 #page_content {
-  padding: 0 1rem;
+  padding: 0 1rem 5rem;
+}
+
+.get_method_border,
+.get_method_border :nth-child(n) {
+  border-color: var(--color-method-get) !important;
+}
+
+.post_method_border,
+.post_method_border :nth-child(n) {
+  border-color: var(--color-method-post) !important;
+}
+
+.put_method_border,
+.put_method_border :nth-child(n) {
+  border-color: var(--color-method-put) !important;
+}
+
+.patch_method_border,
+.patch_method_border :nth-child(n) {
+  border-color: var(--color-method-patch) !important;
+}
+
+.delete_method_border,
+.delete_method_border :nth-child(n) {
+  border-color: var(--color-method-delete) !important;
+}
+
+.options_method_border,
+.options_method_border :nth-child(n) {
+  border-color: var(--color-method-options) !important;
+}
+
+.head_method_border,
+.head_method_border :nth-child(n) {
+  border-color: var(--color-method-head) !important;
+}
+
+.get_method_color {
+  color: var(--color-method-get) !important;
+}
+.post_method_color {
+  color: var(--color-method-post) !important;
+}
+.put_method_color {
+  color: var(--color-method-put) !important;
+}
+.patch_method_color {
+  color: var(--color-method-patch) !important;
+}
+.delete_method_color {
+  color: var(--color-method-delete) !important;
+}
+.options_method_color {
+  color: var(--color-method-options) !important;
+}
+.head_method_color {
+  color: var(--color-method-head) !important;
 }

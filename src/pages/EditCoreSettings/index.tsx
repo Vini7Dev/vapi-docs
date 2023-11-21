@@ -10,7 +10,7 @@ import './styles.css'
 
 export const EditCoreSettings: React.FC = () => {
   return (
-    <>
+    <div className="edit_core_settings_container">
       <PageTitle title="Core Settings" />
 
       <form>
@@ -49,6 +49,6 @@ export const EditCoreSettings: React.FC = () => {
           Icon={<Check size={24} />}
         />
       </form>
-    </>
+    </div>
   )
 }

@@ -18,7 +18,7 @@
   padding-left: 0.5rem;
   margin-top: 1rem;
   border: none;
-  background-color: var(--color-transparent);
+  background-color: var(--color-background-sreen);
   font-size: var(--font-size-input-text);
   width: 100%;
 }
