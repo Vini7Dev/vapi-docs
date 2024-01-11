@@ -3,7 +3,8 @@
 }
 
 .api_paths_container .path_group_container {
-  margin-top: 32px;
+  max-width: 960px;
+  margin: 32px auto 0;
 }
 
 .api_paths_container .path_group_header {
@@ -59,8 +60,13 @@
   align-items: center;
 }
 
+.api_paths_container .path_item_header {
+  cursor: pointer;
+}
+
 .api_paths_container .path_edit_delete_options {
   justify-content: flex-end;
+  margin: 1rem 0;
 }
 
 .api_paths_container .path_method {
@@ -70,14 +76,19 @@
   border-radius: 2px;
   border: 1px solid transparent;
   text-align: center;
+  text-transform: uppercase;
 }
 
 .api_paths_container .path_route {
-  margin-right: 16px;
+  margin-right: 1rem;
   font-size: var(--font-size-button-text);
 }
 
 .api_paths_container .path_description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   color: var(--color-text-placeholder);
   font-size: var(--font-size-button-text-small);
   margin-right: auto;
@@ -102,6 +113,7 @@
 }
 
 .api_paths_container .path_item_specification {
+  cursor: pointer;
   display: flex;
   align-items: center;
   width: 100%;
