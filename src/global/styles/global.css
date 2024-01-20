@@ -67,7 +67,7 @@ textarea::placeholder {
 
 textarea {
   resize: vertical;
-  max-height: 100px;
+  max-height: 150px;
 }
 
 a {
@@ -133,4 +133,10 @@ a {
 }
 .head_method_color {
   color: var(--color-method-head) !important;
+}
+
+.page_content_max_width {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
 }

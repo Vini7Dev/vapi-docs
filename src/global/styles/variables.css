@@ -46,8 +46,8 @@
   --font-size-text-big-small: 0.875rem;
 
   /* SCREEN BREAKPOINTS */
-  --screen-desktop: 1440;
-  --screen-notebook: 1280;
-  --screen-tablet: 768;
-  --screen-mobile: 320;
+  --screen-desktop: 1440px;
+  --screen-notebook: 1280px;
+  --screen-tablet: 768px;
+  --screen-mobile: 320px;
 }

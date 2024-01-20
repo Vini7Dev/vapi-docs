@@ -1,22 +1,18 @@
 import React from 'react'
 
 import { TopBar } from './components/TopBar'
-// import { EditCoreSettings } from './pages/EditCoreSettings'
-import { EditApiPaths } from './pages/EditApiPaths'
 import { NavigationBar } from './components/NavigationBar'
+import { AppRoutes } from './routes/index.routes'
 
 export const App: React.FC = () => {
   return (
     <>
       <TopBar />
+      <NavigationBar />
 
       <main id="page_content">
-        {/* <EditCoreSettings /> */}
-
-        <EditApiPaths />
+        <AppRoutes />
       </main>
-
-      <NavigationBar />
     </>
   )
 }

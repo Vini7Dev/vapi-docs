@@ -17,7 +17,7 @@ export const TextArea: React.FC<T.TextAreaProps> = ({
         className="textarea"
         id={name}
         placeholder={placeholder}
-        rows={4}
+        rows={2}
         {...rest}
       />
     </div>

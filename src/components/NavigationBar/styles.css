@@ -23,3 +23,10 @@
   font-weight: var(--font-weight-bold);
   color: var(--color-text-white);
 }
+
+@media screen and (min-width: 1280px) {
+  .nav_container {
+    position: unset;
+    margin-top: 2px;
+  }
+}

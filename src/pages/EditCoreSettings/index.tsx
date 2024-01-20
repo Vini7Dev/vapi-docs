@@ -11,44 +11,46 @@ import './styles.css'
 export const EditCoreSettings: React.FC = () => {
   return (
     <div className="edit_core_settings_container">
-      <PageTitle title="Core Settings" />
+      <div className="page_content_max_width">
+        <PageTitle title="Core Settings" />
 
-      <form>
-        <div className="double_inputs_container">
+        <form>
+          <div className="double_inputs_container">
+            <Input
+              className="big_input"
+              name="project_name"
+              label="Project Name*"
+              placeholder="My project name..."
+            />
+
+            <Select
+              className="small_input"
+              name="version"
+              label="Version*"
+              placeholder="1.0.0"
+              options={['1.0.0', '1.0.1']}
+            />
+          </div>
+
           <Input
-            className="big_input"
-            name="project_name"
-            label="Project Name*"
-            placeholder="My project name..."
+            name="base_url"
+            label="Base URL*"
+            placeholder="https://my-api.dev/v1"
           />
 
-          <Select
-            className="small_input"
-            name="version"
-            label="Version*"
-            placeholder="1.0.0"
-            options={['1.0.0', '1.0.1']}
+          <TextArea
+            name="description"
+            label="Description*"
+            placeholder="About the API..."
           />
-        </div>
 
-        <Input
-          name="base_url"
-          label="Base URL*"
-          placeholder="https://my-api.dev/v1"
-        />
-
-        <TextArea
-          name="description"
-          label="Description*"
-          placeholder="About the API..."
-        />
-
-        <Button
-          text="SAVE"
-          type="submit"
-          Icon={<Check size={24} />}
-        />
-      </form>
+          <Button
+            text="SAVE"
+            type="submit"
+            Icon={<Check size={24} />}
+          />
+        </form>
+      </div>
     </div>
   )
 }

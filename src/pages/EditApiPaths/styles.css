@@ -3,8 +3,7 @@
 }
 
 .api_paths_container .path_group_container {
-  max-width: 960px;
-  margin: 32px auto 0;
+  margin-top: 32px;
 }
 
 .api_paths_container .path_group_header {
