@@ -1,7 +1,7 @@
 .textarea_container {
   position: relative;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-primary);
+  border-bottom: 0.063rem solid var(--color-primary);
   width: 100%;
   padding: 1rem 0.5rem 0;
 }

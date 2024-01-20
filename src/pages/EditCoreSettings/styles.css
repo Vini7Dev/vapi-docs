@@ -12,5 +12,5 @@
 
 .edit_core_settings_container .double_inputs_container .small_input {
   flex: 1;
-  max-width: 100px;
+  max-width: 6.25rem;
 }

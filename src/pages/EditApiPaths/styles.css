@@ -1,9 +1,9 @@
 .api_paths_container .create_group_button {
-  margin-top: 28px;
+  margin-top: 1.75rem;
 }
 
 .api_paths_container .path_group_container {
-  margin-top: 32px;
+  margin-top: 2rem;
 }
 
 .api_paths_container .path_group_header {
@@ -22,11 +22,11 @@
 }
 
 .api_paths_container .path_group_edit {
-  margin-right: 14px;
+  margin-right: 0.875rem;
 }
 
 .api_paths_container .path_item_edit {
-  margin-right: 4px;
+  margin-right: 0.25rem;
 }
 
 .api_paths_container .path_group_delete,
@@ -50,15 +50,15 @@
 .api_paths_container .path_item_edit svg,
 .api_paths_container .path_group_delete svg,
 .api_paths_container .path_item_delete svg {
-  margin-right: 4px;
+  margin-right: 0.25rem;
 }
 
 .api_paths_container .path_item_container {
-  margin-top: 12px;
-  padding: 8px;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
   background-color: var(--color-background-dark);
-  border-radius: 4px;
-  border-bottom: 1px solid transparent;
+  border-radius: 0.25rem;
+  border-bottom: 0.063rem solid transparent;
 }
 
 .api_paths_container .path_item_header,
@@ -76,11 +76,11 @@
 }
 
 .api_paths_container .path_method {
-  width: 78px;
-  margin-right: 12px;
-  padding: 4px 16px;
-  border-radius: 2px;
-  border: 1px solid transparent;
+  width: 4.875rem;
+  margin-right: 0.75rem;
+  padding: 0.25rem 1rem;
+  border-radius: 0.125rem;
+  border: 0.063rem solid transparent;
   text-align: center;
   text-transform: uppercase;
 }
@@ -101,12 +101,12 @@
 }
 
 .api_paths_container .path_content_body {
-  margin: 4px 0;
+  margin: 0.25rem 0;
 }
 
 .api_paths_container .path_item_section {
-  margin-top: 12px;
-  border-bottom: 1px solid transparent;
+  margin-top: 0.75rem;
+  border-bottom: 0.063rem solid transparent;
 }
 
 .api_paths_container .path_item_section.ignore_margin_top {
@@ -114,7 +114,7 @@
 }
 
 .api_paths_container .path_item_section_title {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   color: var(--color-text-white-75);
 }
 
@@ -123,14 +123,14 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   font-size: var(--font-size-text);
   background-color: var(--color-transparent);
   border: none;
 }
 
 .api_paths_container .path_item_specification strong {
-  margin-right: 8px;
+  margin-right: 0.5rem;
   font-weight: var(--font-weight-medium);
 }
 
@@ -144,7 +144,7 @@
 }
 
 .api_paths_container .path_item_specification_accordion_content {
-  padding-bottom: 10px;
+  padding-bottom: 0.625rem;
 }
 
 .api_paths_container .path_item_specification_accordion_content span {

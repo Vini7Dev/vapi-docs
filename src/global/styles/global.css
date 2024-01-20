@@ -67,7 +67,7 @@ textarea::placeholder {
 
 textarea {
   resize: vertical;
-  max-height: 150px;
+  max-height: 9.375rem;
 }
 
 a {
@@ -136,7 +136,7 @@ a {
 }
 
 .page_content_max_width {
-  max-width: 960px;
+  max-width: 60rem;
   margin: 0 auto;
   padding: 3rem 2rem;
 }
