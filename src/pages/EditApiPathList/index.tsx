@@ -94,7 +94,7 @@ const PATH_GROUPS_MOCK: T.PathGroupContainerProps[] = [
   }
 ]
 
-export const EditApiPaths: React.FC = () => {
+export const EditApiPathList: React.FC = () => {
   return (
     <div className="api_paths_container">
       <div className="page_content_max_width">
