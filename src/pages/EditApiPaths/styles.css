@@ -16,10 +16,17 @@
 
 .api_paths_container .path_group_edit,
 .api_paths_container .path_item_edit {
-  margin-right: 14px;
   color: var(--color-warn);
   background-color: var(--color-transparent);
   border: none;
+}
+
+.api_paths_container .path_group_edit {
+  margin-right: 14px;
+}
+
+.api_paths_container .path_item_edit {
+  margin-right: 4px;
 }
 
 .api_paths_container .path_group_delete,
@@ -33,6 +40,7 @@
 .api_paths_container .path_item_edit,
 .api_paths_container .path_group_delete,
 .api_paths_container .path_item_delete {
+  cursor: pointer;
   display: flex;
   align-items: center;
   font-size: var(--font-size-button-text-small);
@@ -64,8 +72,7 @@
 }
 
 .api_paths_container .path_edit_delete_options {
-  justify-content: flex-end;
-  margin: 1rem 0;
+  margin: 1rem 0 1rem 0.5rem;
 }
 
 .api_paths_container .path_method {

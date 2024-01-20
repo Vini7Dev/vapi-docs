@@ -1,7 +1,17 @@
+export type PathGroupContainerProps = {
+  pathGroupName: string
+  pathItems: PathItemContrainerProps[]
+}
+
 export type PathItemContrainerProps = {
   method: string
   pathRoute: string
   pathDescription: string
+  authenticationsSection: PathItemSpecificationProps[]
+  routeParamsSection: PathItemSpecificationProps[]
+  queryParamsSection: PathItemSpecificationProps[]
+  requestBodiesSection: PathItemPayloadProps[]
+  responseBodiesSection: PathItemPayloadProps[]
 }
 
 export type PathItemSectionProps = {

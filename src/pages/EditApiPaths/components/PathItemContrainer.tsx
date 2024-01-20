@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from 'react'
 
-import { ArrowDown, ArrowRight, Edit, Trash } from '../../components/Icons'
-import * as T from './types'
+import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
+import * as T from '../types'
 
 const PathItemSection: React.FC<T.PathItemSectionProps> = ({
   method,
   title,
   specifications,
 }) => {
+  if (specifications.length === 0) return <></>
+
   return (
     <div className="path_item_section">
       <h4 className="path_item_section_title">{title}</h4>
@@ -30,6 +32,8 @@ const PathItemPayloadSection: React.FC<T.PathItemPayloadSectionProps> = ({
   title,
   payloads,
 }) => {
+  if (payloads.length === 0) return <></>
+
   const [openedPayloads, setOpenedPayloads] = useState<number[]>([])
 
   const updateOpenedPayloads = useCallback((idx: number) => {
@@ -83,6 +87,11 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
   method,
   pathRoute,
   pathDescription,
+  authenticationsSection,
+  queryParamsSection,
+  requestBodiesSection,
+  responseBodiesSection,
+  routeParamsSection,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -111,55 +120,42 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
           <div className="path_content_body">
             <div className="path_edit_delete_options">
               <button className="path_item_edit">
-                <Edit size={20} /> Edit
+                <Edit size={20} />
               </button>
 
               <button className="path_item_delete">
-                <Trash size={20} /> Delete
+                <Trash size={20} />
               </button>
             </div>
 
             <PathItemSection
+              title="Authentication"
               method={method}
-              title={'Authentication'}
-              specifications={[
-                { name: 'Customer Authentication', description: '(Bearer Token)' },
-              ]}
+              specifications={authenticationsSection}
             />
 
             <PathItemSection
+              title="Route Params"
               method={method}
-              title={'Route Params'}
-              specifications={[
-                { name: 'id', type: 'integer', description: 'User ID to be updated' },
-              ]}
+              specifications={routeParamsSection}
             />
 
             <PathItemSection
+              title="Query Params"
               method={method}
-              title={'Query Params'}
-              specifications={[
-                { name: 'example', type: 'boolean', description: 'Example of query param' },
-                { name: 'example', type: 'boolean', description: 'Example of query param' },
-              ]}
+              specifications={queryParamsSection}
             />
 
             <PathItemPayloadSection
+              title="Request Body"
               method={method}
-              title={'Request Body'}
-              payloads={[
-                { name: 'My Request Model #1', type: 'Application/JSON' },
-                { name: 'My Request Model #2', type: 'Application/JSON' },
-              ]}
+              payloads={requestBodiesSection}
             />
 
             <PathItemPayloadSection
+              title="Responses"
               method={method}
-              title={'Responses'}
-              payloads={[
-                { name: '400 My Response Model #1', type: 'Application/JSON' },
-                { name: '401 My Response Model #2', type: 'Application/JSON' },
-              ]}
+              payloads={responseBodiesSection}
             />
           </div>
         )

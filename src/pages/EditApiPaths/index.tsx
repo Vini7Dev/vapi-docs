@@ -1,10 +1,72 @@
 import React from 'react'
 
-import { PageTitle } from '../../components/PageTitle'
+import { Plus } from '../../components/Icons'
 import { Button } from '../../components/Button'
-import { Edit, Plus, Trash } from '../../components/Icons'
+import { PageTitle } from '../../components/PageTitle'
+import { PathGroupContainer } from './components/PathGroupContainer'
+import * as T from './types'
 import './styles.css'
-import { PathItemContrainer } from './PathItemContrainer'
+
+const PATH_GROUPS_MOCK: T.PathItemContrainerProps[] = [
+  {
+    method: 'get',
+    pathRoute: '/users',
+    pathDescription: 'List all users',
+    authenticationsSection: [],
+    routeParamsSection: [],
+    queryParamsSection: [
+      { name: 'example', type: 'boolean', description: 'Example of query param' },
+      { name: 'example', type: 'boolean', description: 'Example of query param' },
+    ],
+    requestBodiesSection: [
+      { name: 'My Request Model #1', type: 'Application/JSON' },
+      { name: 'My Request Model #2', type: 'Application/JSON' },
+    ],
+    responseBodiesSection: [
+      { name: '400 My Response Model #1', type: 'Application/JSON' },
+      { name: '401 My Response Model #2', type: 'Application/JSON' },
+    ],
+  },
+  {
+    method: 'post',
+    pathRoute: '/users',
+    pathDescription: 'Create user',
+    authenticationsSection: [],
+    routeParamsSection: [],
+    queryParamsSection: [],
+    requestBodiesSection: [
+      { name: 'My Request Model #1', type: 'Application/JSON' },
+      { name: 'My Request Model #2', type: 'Application/JSON' },
+    ],
+    responseBodiesSection: [
+      { name: '400 My Response Model #1', type: 'Application/JSON' },
+      { name: '401 My Response Model #2', type: 'Application/JSON' },
+    ],
+  },
+  {
+    method: 'put',
+    pathRoute: '/users/{id}',
+    pathDescription: 'Update user',
+    authenticationsSection: [
+      { name: 'Customer Authentication', description: '(Bearer Token)' },
+    ],
+    routeParamsSection: [
+      { name: 'id', type: 'integer', description: 'User ID to be updated' }
+    ],
+    queryParamsSection: [
+      { name: 'example', type: 'boolean', description: 'Example of query param' },
+      { name: 'example', type: 'boolean', description: 'Example of query param' },
+    ],
+    requestBodiesSection: [
+      { name: 'My Request Model #1', type: 'Application/JSON' },
+      { name: 'My Request Model #2', type: 'Application/JSON' },
+    ],
+    responseBodiesSection: [
+      { name: '400 My Response Model #1', type: 'Application/JSON' },
+      { name: '401 My Response Model #2', type: 'Application/JSON' },
+    ],
+  }
+]
 
 export const EditApiPaths: React.FC = () => {
   return (
@@ -19,37 +81,10 @@ export const EditApiPaths: React.FC = () => {
           Icon={<Plus size={24} />}
         />
 
-        <div className="path_group_container">
-          <div className="path_group_header">
-            <h3 className="path_group_name">Users</h3>
-
-            <button className="path_group_edit">
-              <Edit size={20} /> Edit
-            </button>
-
-            <button className="path_group_delete">
-              <Trash size={20} /> Delete
-            </button>
-          </div>
-
-          <PathItemContrainer
-            method="get"
-            pathRoute="/users"
-            pathDescription="List all users"
-          />
-
-          <PathItemContrainer
-            method="post"
-            pathRoute="/users"
-            pathDescription="Create user"
-          />
-
-          <PathItemContrainer
-            method="put"
-            pathRoute="/users/{id}"
-            pathDescription="Update user"
-          />
-        </div>
+        <PathGroupContainer
+          pathGroupName="Users"
+          pathItems={PATH_GROUPS_MOCK}
+        />
       </div>
     </div>
   )
