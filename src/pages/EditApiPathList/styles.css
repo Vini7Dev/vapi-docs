@@ -109,10 +109,6 @@
   border-bottom: 0.063rem solid transparent;
 }
 
-.edit_api_path_list_container .path_item_section.ignore_margin_top {
-  margin-top: 0;
-}
-
 .edit_api_path_list_container .path_item_section_title {
   margin-bottom: 0.5rem;
   color: var(--color-text-white-75);

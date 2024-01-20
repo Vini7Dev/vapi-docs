@@ -4,6 +4,7 @@
   width: 100%;
   height: 3.625rem;
   background-color: var(--color-primary);
+  z-index: 1;
 }
 
 .nav_wrapper {
