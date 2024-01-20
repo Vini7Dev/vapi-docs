@@ -1,59 +1,59 @@
-.api_paths_container .create_group_button {
+.edit_api_path_list_container .create_group_button {
   margin-top: 1.75rem;
 }
 
-.api_paths_container .path_group_container {
+.edit_api_path_list_container .path_group_container {
   margin-top: 2rem;
 }
 
-.api_paths_container .path_group_header {
+.edit_api_path_list_container .path_group_header {
   display: flex;
 }
 
-.api_paths_container .path_group_name {
+.edit_api_path_list_container .path_group_name {
   flex: 1;
 }
 
-.api_paths_container .path_group_edit,
-.api_paths_container .path_item_edit {
+.edit_api_path_list_container .path_group_edit,
+.edit_api_path_list_container .path_item_edit {
   color: var(--color-warn);
   background-color: var(--color-transparent);
   border: none;
 }
 
-.api_paths_container .path_group_edit {
+.edit_api_path_list_container .path_group_edit {
   margin-right: 0.875rem;
 }
 
-.api_paths_container .path_item_edit {
+.edit_api_path_list_container .path_item_edit {
   margin-right: 0.25rem;
 }
 
-.api_paths_container .path_group_delete,
-.api_paths_container .path_item_delete {
+.edit_api_path_list_container .path_group_delete,
+.edit_api_path_list_container .path_item_delete {
   color: var(--color-danger);
   background-color: var(--color-transparent);
   border: none
 }
 
-.api_paths_container .path_group_edit,
-.api_paths_container .path_item_edit,
-.api_paths_container .path_group_delete,
-.api_paths_container .path_item_delete {
+.edit_api_path_list_container .path_group_edit,
+.edit_api_path_list_container .path_item_edit,
+.edit_api_path_list_container .path_group_delete,
+.edit_api_path_list_container .path_item_delete {
   cursor: pointer;
   display: flex;
   align-items: center;
   font-size: var(--font-size-button-text-small);
 }
 
-.api_paths_container .path_group_edit svg,
-.api_paths_container .path_item_edit svg,
-.api_paths_container .path_group_delete svg,
-.api_paths_container .path_item_delete svg {
+.edit_api_path_list_container .path_group_edit svg,
+.edit_api_path_list_container .path_item_edit svg,
+.edit_api_path_list_container .path_group_delete svg,
+.edit_api_path_list_container .path_item_delete svg {
   margin-right: 0.25rem;
 }
 
-.api_paths_container .path_item_container {
+.edit_api_path_list_container .path_item_container {
   margin-top: 0.75rem;
   padding: 0.5rem;
   background-color: var(--color-background-dark);
@@ -61,21 +61,21 @@
   border-bottom: 0.063rem solid transparent;
 }
 
-.api_paths_container .path_item_header,
-.api_paths_container .path_edit_delete_options {
+.edit_api_path_list_container .path_item_header,
+.edit_api_path_list_container .path_edit_delete_options {
   display: flex;
   align-items: center;
 }
 
-.api_paths_container .path_item_header {
+.edit_api_path_list_container .path_item_header {
   cursor: pointer;
 }
 
-.api_paths_container .path_edit_delete_options {
+.edit_api_path_list_container .path_edit_delete_options {
   margin: 1rem 0 1rem 0.5rem;
 }
 
-.api_paths_container .path_method {
+.edit_api_path_list_container .path_method {
   width: 4.875rem;
   margin-right: 0.75rem;
   padding: 0.25rem 1rem;
@@ -85,12 +85,12 @@
   text-transform: uppercase;
 }
 
-.api_paths_container .path_route {
+.edit_api_path_list_container .path_route {
   margin-right: 1rem;
   font-size: var(--font-size-button-text);
 }
 
-.api_paths_container .path_description {
+.edit_api_path_list_container .path_description {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -100,25 +100,25 @@
   margin-right: auto;
 }
 
-.api_paths_container .path_content_body {
+.edit_api_path_list_container .path_content_body {
   margin: 0.25rem 0;
 }
 
-.api_paths_container .path_item_section {
+.edit_api_path_list_container .path_item_section {
   margin-top: 0.75rem;
   border-bottom: 0.063rem solid transparent;
 }
 
-.api_paths_container .path_item_section.ignore_margin_top {
+.edit_api_path_list_container .path_item_section.ignore_margin_top {
   margin-top: 0;
 }
 
-.api_paths_container .path_item_section_title {
+.edit_api_path_list_container .path_item_section_title {
   margin-bottom: 0.5rem;
   color: var(--color-text-white-75);
 }
 
-.api_paths_container .path_item_specification {
+.edit_api_path_list_container .path_item_specification {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -129,25 +129,25 @@
   border: none;
 }
 
-.api_paths_container .path_item_specification strong {
+.edit_api_path_list_container .path_item_specification strong {
   margin-right: 0.5rem;
   font-weight: var(--font-weight-medium);
 }
 
-.api_paths_container .path_item_specification span {
+.edit_api_path_list_container .path_item_specification span {
   font-size: var(--font-size-text-big-small);
   color: var(--color-text-placeholder);
 }
 
-.api_paths_container .path_specification_arrow {
+.edit_api_path_list_container .path_specification_arrow {
   margin-left: auto;
 }
 
-.api_paths_container .path_item_specification_accordion_content {
+.edit_api_path_list_container .path_item_specification_accordion_content {
   padding-bottom: 0.625rem;
 }
 
-.api_paths_container .path_item_specification_accordion_content span {
+.edit_api_path_list_container .path_item_specification_accordion_content span {
   font-size: var(--font-size-text-big-small);
   color: var(--color-text-placeholder);
 }
