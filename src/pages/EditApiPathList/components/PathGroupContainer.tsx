@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Edit, Trash } from '../../../components/Icons'
+import { Edit, Plus, Trash } from '../../../components/Icons'
 import { PathItemContrainer } from './PathItemContrainer'
 import * as T from '../types'
 
@@ -12,6 +12,10 @@ export const PathGroupContainer: React.FC<T.PathGroupContainerProps> = ({
     <div className="path_group_container">
       <div className="path_group_header">
         <h3 className="path_group_name">{pathGroupName}</h3>
+
+        <button className="path_group_add">
+          <Plus size={20} /> Add Path
+        </button>
 
         <button className="path_group_edit">
           <Edit size={20} /> Edit

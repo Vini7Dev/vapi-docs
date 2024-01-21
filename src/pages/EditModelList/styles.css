@@ -1,5 +1,24 @@
 .edit_model_list_container .model_container_margin {
-  margin-top: 2.25rem;
+  margin-top: 3rem;
+}
+
+.edit_model_list_container .model_item_head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit_model_list_container .path_group_add {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-button-text-small);
+  color: var(--color-success);
+  background-color: var(--color-transparent);
+  border: none;
+}
+
+.edit_model_list_container .path_group_add svg {
+  margin-right: 0.25rem;
 }
 
 .edit_model_list_container .model_item_section {

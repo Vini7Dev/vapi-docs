@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
+import {
+  PathGroupModalContents
+} from './components/ModalContents'
 import { Plus } from '../../components/Icons'
 import { Button } from '../../components/Button'
 import { PageTitle } from '../../components/PageTitle'
 import { PathGroupContainer } from './components/PathGroupContainer'
 import * as T from './types'
 import './styles.css'
+import { Modal } from '../../components/Modal'
 
 const PATH_GROUPS_MOCK: T.PathGroupContainerProps[] = [
   {
@@ -94,7 +98,26 @@ const PATH_GROUPS_MOCK: T.PathGroupContainerProps[] = [
   }
 ]
 
+const MODAL_CONTENTS = [
+  {
+    title: 'Path Group',
+    content: (<PathGroupModalContents />),
+  },
+]
+
 export const EditApiPathList: React.FC = () => {
+  const [modalIsOpened, setModalIsOpened] = useState(false)
+  const [modalContentIndex, setModalContentIndex] = useState(0)
+
+  const toggleModalIsOpened = useCallback((contentIndex: number) => {
+    setModalContentIndex(contentIndex)
+    setModalIsOpened(!modalIsOpened)
+  }, [modalIsOpened])
+
+  const closeModal = useCallback(() => {
+    setModalIsOpened(false)
+  }, [])
+
   return (
     <div className="edit_api_path_list_container">
       <div className="page_content_max_width">
@@ -104,6 +127,7 @@ export const EditApiPathList: React.FC = () => {
           text="Create Path Group"
           type="button"
           className="create_group_button"
+          onClick={() => toggleModalIsOpened(0)}
           Icon={<Plus size={24} />}
         />
 
@@ -115,6 +139,17 @@ export const EditApiPathList: React.FC = () => {
           />
         ))}
       </div>
+
+      {
+        modalIsOpened && (
+          <Modal
+            title={MODAL_CONTENTS[modalContentIndex].title}
+            onClose={closeModal}
+          >
+            {MODAL_CONTENTS[modalContentIndex].content}
+          </Modal>
+        )
+      }
     </div>
   )
 }

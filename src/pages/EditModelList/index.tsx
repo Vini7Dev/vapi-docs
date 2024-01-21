@@ -8,7 +8,6 @@ import {
 import { PayloadModelItemContainer } from './components/PayloadModelItemContainer'
 import { AuthModelItemContainer } from './components/AuthModelItemContainer'
 import { PageTitle } from '../../components/PageTitle'
-import { Button } from '../../components/Button'
 import { Plus } from '../../components/Icons'
 import { Modal } from '../../components/Modal'
 import * as T from './types'
@@ -62,7 +61,13 @@ export const EditModelList: React.FC = () => {
       <div className="page_content_max_width">
         <PageTitle title="Models" />
 
-        <h3>Authentication</h3>
+        <div className="model_item_head">
+          <h3>Authentication</h3>
+
+          <button className="path_group_add" onClick={() => toggleModalIsOpened(0)}>
+            <Plus size={20} /> Add Model
+          </button>
+        </div>
 
         {AUTHENTICATION_MODELS_MOCK.map((model, idx) => (
           <AuthModelItemContainer
@@ -72,16 +77,13 @@ export const EditModelList: React.FC = () => {
           />
         ))}
 
-        <Button
-          text="NEW AUTH MODEL"
-          height="medium"
-          isFullWidth
-          Icon={<Plus size={24} />}
-          onClick={() => toggleModalIsOpened(0)}
-          style={{ margin: '1.75rem auto 3rem' }}
-        />
+        <div className="model_item_head model_container_margin">
+          <h3>Request Body</h3>
 
-        <h3 className="model_container_margin">Request Body</h3>
+          <button className="path_group_add" onClick={() => toggleModalIsOpened(1)}>
+            <Plus size={20} /> Add Model
+          </button>
+        </div>
 
         {REQUEST_MODELS_MOCK.map((model, idx) => (
           <PayloadModelItemContainer
@@ -91,16 +93,13 @@ export const EditModelList: React.FC = () => {
           />
         ))}
 
-        <Button
-          text="NEW REQUEST MODEL"
-          height="medium"
-          isFullWidth
-          Icon={<Plus size={24} />}
-          onClick={() => toggleModalIsOpened(1)}
-          style={{ margin: '1.75rem auto 3rem' }}
-        />
+        <div className="model_item_head model_container_margin">
+          <h3>Response Body</h3>
 
-        <h3 className="model_container_margin">Response Body</h3>
+          <button className="path_group_add" onClick={() => toggleModalIsOpened(2)}>
+            <Plus size={20} /> Add Model
+          </button>
+        </div>
 
         {RESPONSE_MODELS_MOCK.map((model, idx) => (
           <PayloadModelItemContainer
@@ -110,14 +109,6 @@ export const EditModelList: React.FC = () => {
           />
         ))}
 
-        <Button
-          text="NEW RESPONSE MODEL"
-          height="medium"
-          isFullWidth
-          Icon={<Plus size={24} />}
-          onClick={() => toggleModalIsOpened(2)}
-          style={{ margin: '1.75rem auto 0' }}
-        />
       </div>
 
       {

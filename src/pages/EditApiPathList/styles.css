@@ -14,13 +14,30 @@
   flex: 1;
 }
 
+.edit_api_path_list_container .path_group_add,
 .edit_api_path_list_container .path_group_edit,
-.edit_api_path_list_container .path_item_edit {
-  color: var(--color-warn);
+.edit_api_path_list_container .path_item_edit,
+.edit_api_path_list_container .path_group_delete,
+.edit_api_path_list_container .path_item_delete {
   background-color: var(--color-transparent);
   border: none;
 }
 
+.edit_api_path_list_container .path_group_add {
+  color: var(--color-success);
+}
+
+.edit_api_path_list_container .path_group_edit,
+.edit_api_path_list_container .path_item_edit {
+  color: var(--color-warn);
+}
+
+.edit_api_path_list_container .path_group_delete,
+.edit_api_path_list_container .path_item_delete {
+  color: var(--color-danger);
+}
+
+.edit_api_path_list_container .path_group_add,
 .edit_api_path_list_container .path_group_edit {
   margin-right: 0.875rem;
 }
@@ -29,13 +46,7 @@
   margin-right: 0.25rem;
 }
 
-.edit_api_path_list_container .path_group_delete,
-.edit_api_path_list_container .path_item_delete {
-  color: var(--color-danger);
-  background-color: var(--color-transparent);
-  border: none
-}
-
+.edit_api_path_list_container .path_group_add,
 .edit_api_path_list_container .path_group_edit,
 .edit_api_path_list_container .path_item_edit,
 .edit_api_path_list_container .path_group_delete,
@@ -46,6 +57,7 @@
   font-size: var(--font-size-button-text-small);
 }
 
+.edit_api_path_list_container .path_group_add svg,
 .edit_api_path_list_container .path_group_edit svg,
 .edit_api_path_list_container .path_item_edit svg,
 .edit_api_path_list_container .path_group_delete svg,
