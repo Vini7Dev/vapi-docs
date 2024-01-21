@@ -5,4 +5,5 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string
   placeholder: string
   options: string[]
+  backgroundColor?: string
 }

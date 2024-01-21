@@ -5,7 +5,8 @@ import {
   FiEdit2,
   FiTrash,
   FiChevronDown,
-  FiChevronRight
+  FiChevronRight,
+  FiX,
 } from 'react-icons/fi'
 
 import * as T from './types'
@@ -21,3 +22,5 @@ export const Trash: React.FC<T.IconProps> = ({ ...rest }) => <FiTrash {...rest} 
 export const ArrowDown: React.FC<T.IconProps> = ({ ...rest }) => <FiChevronDown {...rest} />
 
 export const ArrowRight: React.FC<T.IconProps> = ({ ...rest }) => <FiChevronRight {...rest} />
+
+export const XClose: React.FC<T.IconProps> = ({ ...rest }) => <FiX {...rest} />

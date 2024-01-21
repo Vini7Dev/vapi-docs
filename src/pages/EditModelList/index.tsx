@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
+import {
+  AuthModalContents,
+  RequestModalContents,
+  ResponseModalContents,
+} from './components/ModalContents'
 import { PayloadModelItemContainer } from './components/PayloadModelItemContainer'
 import { AuthModelItemContainer } from './components/AuthModelItemContainer'
 import { PageTitle } from '../../components/PageTitle'
 import { Button } from '../../components/Button'
 import { Plus } from '../../components/Icons'
+import { Modal } from '../../components/Modal'
 import * as T from './types'
 import './styles.css'
 
@@ -23,7 +29,34 @@ const RESPONSE_MODELS_MOCK: T.PayloadModelItemContainerProps[] = [
   { authTitle: 'My Response Model #2', contentType: 'Application/JSON' },
 ]
 
+const MODAL_CONTENTS = [
+  {
+    title: 'Auth Model',
+    content: (<AuthModalContents />),
+  },
+  {
+    title: 'Request Model',
+    content: (<RequestModalContents />),
+  },
+  {
+    title: 'Response Model',
+    content: (<ResponseModalContents />),
+  },
+]
+
 export const EditModelList: React.FC = () => {
+  const [modalIsOpened, setModalIsOpened] = useState(false)
+  const [modalContentIndex, setModalContentIndex] = useState(0)
+
+  const toggleModalIsOpened = useCallback((contentIndex: number) => {
+    setModalContentIndex(contentIndex)
+    setModalIsOpened(!modalIsOpened)
+  }, [modalIsOpened])
+
+  const closeModal = useCallback(() => {
+    setModalIsOpened(false)
+  }, [])
+
   return (
     <div className="edit_model_list_container">
       <div className="page_content_max_width">
@@ -44,6 +77,7 @@ export const EditModelList: React.FC = () => {
           height="medium"
           isFullWidth
           Icon={<Plus size={24} />}
+          onClick={() => toggleModalIsOpened(0)}
           style={{ margin: '1.75rem auto 3rem' }}
         />
 
@@ -62,6 +96,7 @@ export const EditModelList: React.FC = () => {
           height="medium"
           isFullWidth
           Icon={<Plus size={24} />}
+          onClick={() => toggleModalIsOpened(1)}
           style={{ margin: '1.75rem auto 3rem' }}
         />
 
@@ -80,9 +115,21 @@ export const EditModelList: React.FC = () => {
           height="medium"
           isFullWidth
           Icon={<Plus size={24} />}
+          onClick={() => toggleModalIsOpened(2)}
           style={{ margin: '1.75rem auto 0' }}
         />
       </div>
+
+      {
+        modalIsOpened && (
+          <Modal
+            title={MODAL_CONTENTS[modalContentIndex].title}
+            onClose={closeModal}
+          >
+            {MODAL_CONTENTS[modalContentIndex].content}
+          </Modal>
+        )
+      }
     </div>
   )
 }

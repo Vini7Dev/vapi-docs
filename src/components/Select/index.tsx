@@ -9,6 +9,7 @@ export const Select: React.FC<T.SelectProps> = ({
   placeholder,
   className = '',
   options,
+  backgroundColor,
   ...rest
 }) => {
   return (
@@ -19,6 +20,7 @@ export const Select: React.FC<T.SelectProps> = ({
         className="select"
         id={name}
         placeholder={placeholder}
+        style={backgroundColor ? { backgroundColor } : {}}
         {...rest}
       >
         {

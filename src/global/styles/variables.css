@@ -5,10 +5,13 @@
   --color-success: #33B469;
   --color-warn: #EBBC2E;
   --color-danger: #ED3A3A;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
   --color-transparent: transparent;
 
-  --color-background-sreen: #2C2C2C;
   --color-background-dark: #222020;
+  --color-background-sreen: #2C2C2C;
+  --color-background-sreen-75: #2C2C2CBF;
 
   --color-text-white: #FFFFFF;
   --color-text-white-50: #FFFFFF80;
