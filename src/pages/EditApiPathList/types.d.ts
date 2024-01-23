@@ -1,20 +1,4 @@
-export type PathArrayItemType = { [key: string]: string }
-
-export interface RouteParamType extends PathArrayItemType {
-  routeParam: string;
-  routeParamDescription: string
-}
-
-export interface QueryParamType extends PathArrayItemType {
-  routeQuery: string;
-  routeQueryDescription: string
-}
-
-export interface AuthenticationType extends PathArrayItemType { authentication: string }
-
-export interface RequestType extends PathArrayItemType { request: string }
-
-export interface ResponseType extends PathArrayItemType { response: string }
+import * as FDT from '../../hooks/pathForm.types'
 
 export type PathGroupContainerProps = {
   pathGroupName: string
@@ -65,7 +49,17 @@ export type MultipleFieldsSubtitleProps = {
 export type MultipleFieldsProps = {
   fields: FieldProps[]
   fieldGroupValues: FieldGroupValueProps[]
-  onClickInRemove?(): void
+  fieldArrayName: keyof FDT.PathFromData
+  onClickInRemove?(
+    fieldArrayName: keyof FDT.PathFromData,
+    indexToRemove: number,
+  ): void
+  onUpdateField(
+    fieldArrayName: keyof FDT.PathFromData,
+    indexToUpdate: number,
+    fieldName: string,
+    fieldValue: string
+  ): void
 }
 
 type FieldType = 'select' | 'text'
@@ -74,6 +68,7 @@ type FieldProps = {
   type: FieldType
   fieldName: string
   placeholder?: string
+  defaultValue?: string
   availableOptions?: string[]
   disabled?: boolean
 }

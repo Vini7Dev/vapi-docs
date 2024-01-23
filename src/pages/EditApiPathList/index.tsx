@@ -8,8 +8,9 @@ import { Plus } from '../../components/Icons'
 import { Button } from '../../components/Button'
 import { PageTitle } from '../../components/PageTitle'
 import { PathGroupContainer } from './components/PathGroupContainer'
-import './styles.css'
 import { Modal } from '../../components/Modal'
+import { PathFormProvider } from '../../hooks/PathFormContext'
+import './styles.css'
 
 const PATH_GROUPS_MOCK = [
   {
@@ -105,7 +106,11 @@ const MODAL_CONTENTS = [
   },
   {
     title: 'Path Data',
-    content: (<PathDataModalContents />),
+    content: (
+      <PathFormProvider>
+        <PathDataModalContents />
+      </PathFormProvider>
+    ),
   },
 ]
 

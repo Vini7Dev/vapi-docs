@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import * as T from './types'
 import './styles.css'
@@ -10,8 +10,16 @@ export const Select: React.FC<T.SelectProps> = ({
   className = '',
   options,
   backgroundColor,
+  onLoad,
   ...rest
 }) => {
+  useEffect(() => {
+    if (!onLoad) return
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onLoad({} as any)
+  }, [])
+
   return (
     <div className={`select_container ${className} ${!label ? 'without_margin' : ''}`}>
       {label && (

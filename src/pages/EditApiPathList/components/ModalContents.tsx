@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
+import { usePathForm } from '../../../hooks/PathFormContext'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
 import { Select } from '../../../components/Select'
@@ -7,6 +8,7 @@ import { Trash, Plus, Info } from '../../../components/Icons'
 import { extractTextsBetweenBraces } from '../../../utils/extractTextsBetweenBraces'
 import * as T from '../types'
 
+const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 const AUTHENTICATIONS_MOCK = ['Admin Auth', 'Customer Auth']
 const REQUESTS_MOCK = ['#1 My Request Model', '#2 My Request Model']
 const RESPONSES_MOCK = ['#1 My Response Model', '#2 My Response Model']
@@ -53,7 +55,9 @@ const MultipleFieldsSubtitle: React.FC<T.MultipleFieldsSubtitleProps> = ({
 const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
   fields,
   fieldGroupValues,
+  fieldArrayName,
   onClickInRemove,
+  onUpdateField,
 }) => {
   return (
     <div className="path_multiple_fields_container">
@@ -69,6 +73,13 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
                   options={field?.availableOptions ?? []}
                   value={fieldGroupValues[field.fieldName]}
                   disabled={field.disabled}
+                  onChange={(e) => {
+                    onUpdateField(fieldArrayName, idx, field.fieldName, e.target.value)
+                  }}
+                  onLoad={() => {
+                    if (!field.defaultValue) return
+                    onUpdateField(fieldArrayName, idx, field.fieldName, field.defaultValue)
+                  }}
                 />
               ) : (
                 <Input
@@ -76,13 +87,23 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
                   name={field.fieldName}
                   value={fieldGroupValues[field.fieldName]}
                   disabled={field.disabled}
+                  onChange={(e) => {
+                    onUpdateField(fieldArrayName, idx, field.fieldName, e.target.value)
+                  }}
+                  onLoad={() => {
+                    if (!field.defaultValue) return
+                    onUpdateField(fieldArrayName, idx, field.fieldName, field.defaultValue)
+                  }}
                 />
               )}
             </>
           ))}
 
           {onClickInRemove ? (
-            <button className="path_remove_select_button" onClick={onClickInRemove}>
+            <button
+              className="path_remove_select_button"
+              onClick={() => onClickInRemove(fieldArrayName, idx)}
+            >
               <Trash size={24} />
             </button>
           ) : <div className="path_remove_select_button" />}
@@ -93,39 +114,46 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
 }
 
 export const PathDataModalContents: React.FC = () => {
-  const [pathRoute, setPathRoute] = useState('')
-  const [pathRouteParams, setPathRouteParams] = useState<T.RouteParamType[]>([])
-  const [pathRouteQuery, setPathRouteQuery] = useState<T.QueryParamType[]>([])
-  const [pathAuth, setPathAuth] = useState<T.AuthenticationType[]>([])
-  const [pathRequest, setPathRequest] = useState<T.RequestType[]>([])
-  const [pathResponse, setPathResponse] = useState<T.ResponseType[]>([])
+  const {
+    pathFormData,
+    updateFormDataField,
+    updateFormDataFieldArray,
+    addItemOnDataFieldArray,
+    removeItemFormDataFieldArray,
+    updateItemOnDataFieldArray,
+  } = usePathForm()
+
+  if (!pathFormData) return <></>
+
+  const {
+    pathMethod,
+    pathRoute,
+    pathDescription,
+    pathRouteParams,
+    pathRouteQuery,
+    pathAuth,
+    pathRequest,
+    pathResponse,
+  } = pathFormData
 
   useEffect(() => {
     const paramsInRoute = extractTextsBetweenBraces(pathRoute)
 
-    const routeParamsFormated = paramsInRoute.map(param => ({
-      routeParam: param, routeParamDescription: ''
-    }))
+    const formatedRouteParams = paramsInRoute.map(param => ({ routeParam: param }))
 
-    setPathRouteParams(routeParamsFormated)
+    updateFormDataFieldArray('pathRouteParams', formatedRouteParams)
   }, [pathRoute])
-
-  const addEmptyItemOnArray = useCallback(<ItemType extends T.PathArrayItemType>(
-    originalArray: ItemType[],
-    setNewArray: (newArray:ItemType[]) => void
-  ) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setNewArray([...originalArray, {} as any])
-  }, [])
 
   return (
     <>
       <Select
         label="Method*"
-        placeholder="GET"
+        placeholder={HTTP_METHODS[0]}
         name="pathMethod"
         backgroundColor="#222020"
-        options={['GET', 'POST', 'PUT', 'PATCH', 'DELETE']}
+        options={HTTP_METHODS}
+        value={pathMethod}
+        onChange={(e) => updateFormDataField('pathMethod', e.target.value)}
       />
 
       <Input
@@ -133,13 +161,15 @@ export const PathDataModalContents: React.FC = () => {
         placeholder="/users"
         name="pathRoute"
         value={pathRoute}
-        onChange={(e) => setPathRoute(e.target.value)}
+        onChange={(e) => updateFormDataField('pathRoute', e.target.value)}
       />
 
       <Input
         label="Description*"
         placeholder="List all users"
         name="pathDescription"
+        value={pathDescription}
+        onChange={(e) => updateFormDataField('pathDescription', e.target.value)}
       />
 
       <MultipleFieldsSubtitle
@@ -148,6 +178,8 @@ export const PathDataModalContents: React.FC = () => {
       />
 
       <MultipleFields
+        onUpdateField={updateItemOnDataFieldArray}
+        fieldArrayName="pathRouteParams"
         fieldGroupValues={pathRouteParams}
         fields={[
           { type: 'text', fieldName: 'routeParam', disabled: true },
@@ -157,13 +189,13 @@ export const PathDataModalContents: React.FC = () => {
 
       <MultipleFieldsSubtitle
         subtitle="Query Params"
-        onClickInAdd={() => {
-          addEmptyItemOnArray<T.QueryParamType>(pathRouteQuery, setPathRouteQuery)
-        }}
+        onClickInAdd={() => addItemOnDataFieldArray('pathRouteQuery')}
       />
 
       <MultipleFields
-        onClickInRemove={() => {}}
+        onClickInRemove={removeItemFormDataFieldArray}
+        onUpdateField={updateItemOnDataFieldArray}
+        fieldArrayName="pathRouteQuery"
         fieldGroupValues={pathRouteQuery}
         fields={[
           { type: 'text', fieldName: 'routeQuery' },
@@ -173,40 +205,40 @@ export const PathDataModalContents: React.FC = () => {
 
       <MultipleFieldsSubtitle
         subtitle="Authentications"
-        onClickInAdd={() => {
-          addEmptyItemOnArray<T.AuthenticationType>(pathAuth, setPathAuth)
-        }}
+        onClickInAdd={() => addItemOnDataFieldArray('pathAuth')}
       />
 
       <MultipleFields
-        onClickInRemove={() => {}}
-        fields={[{ type: 'select', fieldName: 'authentication', availableOptions: AUTHENTICATIONS_MOCK }]}
+        onClickInRemove={removeItemFormDataFieldArray}
+        onUpdateField={updateItemOnDataFieldArray}
+        fieldArrayName="pathAuth"
+        fields={[{ type: 'select', fieldName: 'authentication', availableOptions: AUTHENTICATIONS_MOCK, defaultValue: AUTHENTICATIONS_MOCK[0] }]}
         fieldGroupValues={pathAuth}
       />
 
       <MultipleFieldsSubtitle
         subtitle="Request Bodies"
-        onClickInAdd={() => {
-          addEmptyItemOnArray<T.RequestType>(pathRequest, setPathRequest)
-        }}
+        onClickInAdd={() => addItemOnDataFieldArray('pathRequest')}
       />
 
       <MultipleFields
-        onClickInRemove={() => {}}
-        fields={[{ type: 'select', fieldName: 'request', availableOptions: REQUESTS_MOCK }]}
+        onClickInRemove={removeItemFormDataFieldArray}
+        onUpdateField={updateItemOnDataFieldArray}
+        fieldArrayName="pathRequest"
+        fields={[{ type: 'select', fieldName: 'request', availableOptions: REQUESTS_MOCK, defaultValue: REQUESTS_MOCK[0] }]}
         fieldGroupValues={pathRequest}
       />
 
       <MultipleFieldsSubtitle
         subtitle="Responses"
-        onClickInAdd={() => {
-          addEmptyItemOnArray<T.ResponseType>(pathResponse, setPathResponse)
-        }}
+        onClickInAdd={() => addItemOnDataFieldArray('pathResponse')}
       />
 
       <MultipleFields
-        onClickInRemove={() => {}}
-        fields={[{ type: 'select', fieldName: 'response', availableOptions: RESPONSES_MOCK }]}
+        onClickInRemove={removeItemFormDataFieldArray}
+        onUpdateField={updateItemOnDataFieldArray}
+        fieldArrayName="pathResponse"
+        fields={[{ type: 'select', fieldName: 'response', availableOptions: RESPONSES_MOCK, defaultValue: RESPONSES_MOCK[0] }]}
         fieldGroupValues={pathResponse}
       />
 
