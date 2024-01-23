@@ -4,6 +4,6 @@ export type AuthModelItemContainerProps = {
 }
 
 export type PayloadModelItemContainerProps = {
-  authTitle: string
+  payloadTitle: string
   contentType: 'Application/JSON'
 }

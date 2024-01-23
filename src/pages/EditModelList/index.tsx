@@ -19,13 +19,13 @@ const AUTHENTICATION_MODELS_MOCK: T.AuthModelItemContainerProps[] = [
 ]
 
 const REQUEST_MODELS_MOCK: T.PayloadModelItemContainerProps[] = [
-  { authTitle: 'My Request Model #1', contentType: 'Application/JSON' },
-  { authTitle: 'My Request Model #2', contentType: 'Application/JSON' },
+  { payloadTitle: 'My Request Model #1', contentType: 'Application/JSON' },
+  { payloadTitle: 'My Request Model #2', contentType: 'Application/JSON' },
 ]
 
 const RESPONSE_MODELS_MOCK: T.PayloadModelItemContainerProps[] = [
-  { authTitle: 'My Response Model #1', contentType: 'Application/JSON' },
-  { authTitle: 'My Response Model #2', contentType: 'Application/JSON' },
+  { payloadTitle: 'My Response Model #1', contentType: 'Application/JSON' },
+  { payloadTitle: 'My Response Model #2', contentType: 'Application/JSON' },
 ]
 
 const MODAL_CONTENTS = [
@@ -88,7 +88,7 @@ export const EditModelList: React.FC = () => {
         {REQUEST_MODELS_MOCK.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            authTitle={model.authTitle}
+            payloadTitle={model.payloadTitle}
             contentType={model.contentType}
           />
         ))}
@@ -104,7 +104,7 @@ export const EditModelList: React.FC = () => {
         {RESPONSE_MODELS_MOCK.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            authTitle={model.authTitle}
+            payloadTitle={model.payloadTitle}
             contentType={model.contentType}
           />
         ))}

@@ -1,33 +1,12 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react'
 
+import * as ADST from '../ApiDocStorage/types'
 import * as T from './types'
 
-export { T }
-
-interface PathFormContextProps {
-  pathFormData: T.PathFromData
-  updateFormDataField(fieldName: keyof T.PathFromData, fieldValue: string): void
-  updateFormDataFieldArray(
-    fieldArrayName: keyof T.PathFromData,
-    fieldArrayValue: T.PathArrayItemType[],
-  ): void
-  addItemOnDataFieldArray(fieldName: keyof T.PathFromData): void
-  removeItemFormDataFieldArray(
-    fieldName: keyof T.PathFromData,
-    indexToRemove: number,
-  ): void
-  updateItemOnDataFieldArray(
-    fieldArrayName: keyof T.PathFromData,
-    indexToUpdate: number,
-    fieldName: string,
-    fieldValue: string,
-  ): void
-}
-
-const PathFormContext = createContext<PathFormContextProps>({} as PathFormContextProps)
+const PathFormContext = createContext<T.PathFormContextProps>({} as T.PathFormContextProps)
 
 export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [pathFormData, setPathFormData] = useState<T.PathFromData>({
+  const [pathFormData, setPathFormData] = useState<ADST.PathFromData>({
     pathMethod: 'GET',
     pathRoute: '',
     pathDescription: '',
@@ -41,7 +20,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   console.log('===> pathFormData', pathFormData)
 
   const updateFormDataField = useCallback((
-    fieldName: keyof T.PathFromData,
+    fieldName: keyof ADST.PathFromData,
     fieldValue: string,
   ) => {
     if (typeof pathFormData[fieldName] !== 'string') return
@@ -55,8 +34,8 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const updateFormDataFieldArray = useCallback((
-    fieldArrayName: keyof T.PathFromData,
-    fieldArrayValue: T.PathArrayItemType[],
+    fieldArrayName: keyof ADST.PathFromData,
+    fieldArrayValue: ADST.PathArrayItemType[],
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
 
@@ -69,11 +48,11 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const addItemOnDataFieldArray = useCallback((
-    fieldArrayName: keyof T.PathFromData,
+    fieldArrayName: keyof ADST.PathFromData,
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
 
-    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as T.PathArrayItemType[]
+    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as ADST.PathArrayItemType[]
 
     arrayToUpdate.push({})
 
@@ -84,12 +63,12 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const removeItemFormDataFieldArray = useCallback((
-    fieldArrayName: keyof T.PathFromData,
+    fieldArrayName: keyof ADST.PathFromData,
     indexToRemove: number,
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
 
-    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as T.PathArrayItemType[]
+    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as ADST.PathArrayItemType[]
 
     setPathFormData({
       ...pathFormData,
@@ -98,14 +77,14 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const updateItemOnDataFieldArray = useCallback((
-    fieldArrayName: keyof T.PathFromData,
+    fieldArrayName: keyof ADST.PathFromData,
     indexToUpdate: number,
     fieldName: string,
     fieldValue: string,
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
 
-    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as T.PathArrayItemType[]
+    const arrayToUpdate = pathFormData[fieldArrayName] as unknown as ADST.PathArrayItemType[]
 
     arrayToUpdate[indexToUpdate][fieldName] = fieldValue
 
@@ -129,7 +108,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   )
 }
 
-export const usePathForm = (): PathFormContextProps => {
+export const usePathForm = (): T.PathFormContextProps => {
   const context = useContext(PathFormContext)
 
   return context

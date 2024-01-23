@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
 
 export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProps> = ({
-  authTitle,
+  payloadTitle,
   contentType,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +16,7 @@ export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProp
   return (
     <div className="model_item_section model_item_payload_section">
       <div className="model_item_header" onClick={toggleIsOpen}>
-        <strong className="model_item_header_title">{authTitle}</strong>
+        <strong className="model_item_header_title">{payloadTitle}</strong>
 
         {
           isOpen

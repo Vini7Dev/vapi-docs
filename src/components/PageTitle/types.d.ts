@@ -1,3 +1,3 @@
-export interface PageTitleProps {
+export type PageTitleProps = {
   title: string
 }

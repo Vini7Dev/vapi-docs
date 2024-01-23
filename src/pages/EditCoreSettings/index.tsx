@@ -2,7 +2,6 @@ import React from 'react'
 
 import { PageTitle } from '../../components/PageTitle'
 import { Input } from '../../components/Input'
-import { Select } from '../../components/Select'
 import { Button } from '../../components/Button'
 import { Check } from '../../components/Icons'
 import { TextArea } from '../../components/TextArea'
@@ -23,12 +22,11 @@ export const EditCoreSettings: React.FC = () => {
               placeholder="My project name..."
             />
 
-            <Select
+            <Input
               className="small_input"
               name="version"
               label="Version*"
               placeholder="1.0.0"
-              options={['1.0.0', '1.0.1']}
             />
           </div>
 
