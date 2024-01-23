@@ -12,8 +12,8 @@ export const Input: React.FC<T.InputProps> = ({
   ...rest
 }) => {
   return (
-    <div className={`input_container ${className}`}>
-      <label className="input_label" htmlFor={name}>{label}</label>
+    <div className={`input_container ${className} ${!label ? 'without_margin' : ''}`}>
+      {label && <label className="input_label" htmlFor={name}>{label}</label>}
 
       <input
         className="input"

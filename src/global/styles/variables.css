@@ -42,11 +42,12 @@
   --font-size-input-label: 0.875rem;
   --font-size-input-text: 1rem;
   --font-size-button-text: 1.125rem;
+  --font-size-button-text-normal: 1rem;
   --font-size-button-text-small: 0.875rem;
 
   --font-size-text: 1rem;
   --font-size-text-big: 1.125rem;
-  --font-size-text-big-small: 0.875rem;
+  --font-size-text-small: 0.875rem;
 
   /* SCREEN BREAKPOINTS */
   --screen-desktop: 1440px;

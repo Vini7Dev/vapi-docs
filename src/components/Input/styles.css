@@ -22,3 +22,8 @@
   font-size: var(--font-size-input-text);
   width: 100%;
 }
+
+.without_margin,
+.without_margin .input {
+  margin: 0;
+}

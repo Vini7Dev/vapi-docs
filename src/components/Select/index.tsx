@@ -13,8 +13,10 @@ export const Select: React.FC<T.SelectProps> = ({
   ...rest
 }) => {
   return (
-    <div className={`select_container ${className}`}>
-      <label className="select_label" htmlFor={name}>{label}</label>
+    <div className={`select_container ${className} ${!label ? 'without_margin' : ''}`}>
+      {label && (
+        <label className="select_label" htmlFor={name}>{label}</label>
+      )}
 
       <select
         className="select"

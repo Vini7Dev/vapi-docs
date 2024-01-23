@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react'
 
 import {
-  PathGroupModalContents
+  PathDataModalContents,
+  PathGroupModalContents,
 } from './components/ModalContents'
 import { Plus } from '../../components/Icons'
 import { Button } from '../../components/Button'
 import { PageTitle } from '../../components/PageTitle'
 import { PathGroupContainer } from './components/PathGroupContainer'
-import * as T from './types'
 import './styles.css'
 import { Modal } from '../../components/Modal'
 
-const PATH_GROUPS_MOCK: T.PathGroupContainerProps[] = [
+const PATH_GROUPS_MOCK = [
   {
     pathGroupName: 'Users',
     pathItems: [
@@ -103,6 +103,10 @@ const MODAL_CONTENTS = [
     title: 'Path Group',
     content: (<PathGroupModalContents />),
   },
+  {
+    title: 'Path Data',
+    content: (<PathDataModalContents />),
+  },
 ]
 
 export const EditApiPathList: React.FC = () => {
@@ -136,6 +140,7 @@ export const EditApiPathList: React.FC = () => {
             key={idx}
             pathGroupName={pathGroup.pathGroupName}
             pathItems={pathGroup.pathItems}
+            togglePathDataModal={() => toggleModalIsOpened(1)}
           />
         ))}
       </div>

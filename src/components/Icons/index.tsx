@@ -7,6 +7,7 @@ import {
   FiChevronDown,
   FiChevronRight,
   FiX,
+  FiInfo,
 } from 'react-icons/fi'
 
 import * as T from './types'
@@ -24,3 +25,5 @@ export const ArrowDown: React.FC<T.IconProps> = ({ ...rest }) => <FiChevronDown 
 export const ArrowRight: React.FC<T.IconProps> = ({ ...rest }) => <FiChevronRight {...rest} />
 
 export const XClose: React.FC<T.IconProps> = ({ ...rest }) => <FiX {...rest} />
+
+export const Info: React.FC<T.IconProps> = ({ ...rest }) => <FiInfo {...rest} />
