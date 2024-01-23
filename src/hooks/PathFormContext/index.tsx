@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react'
 
-import * as T from './pathForm.types'
+import * as T from './types'
 
 export { T }
 

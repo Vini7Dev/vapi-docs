@@ -1,4 +1,4 @@
-import * as FDT from '../../hooks/pathForm.types'
+import * as FDT from '../../hooks/PathFormContext/types'
 
 export type PathGroupContainerProps = {
   pathGroupName: string
