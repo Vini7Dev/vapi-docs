@@ -1,5 +1,13 @@
-import React, { PropsWithChildren, createContext, useCallback, useContext, useState } from 'react'
+import React, {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+} from 'react'
+import { z } from 'zod'
 
+import { useToast } from '../Toast'
 import * as T from './types'
 
 const ApiDocStorageContext = createContext<T.ApiDocStorageContextProps>({} as T.ApiDocStorageContextProps)
@@ -7,11 +15,35 @@ const ApiDocStorageContext = createContext<T.ApiDocStorageContextProps>({} as T.
 export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  const { addToast } = useToast()
+
   const [coreSettings, setCoreSettings] = useState<T.CoreSettingsType>({} as T.CoreSettingsType)
   const [models, setModels] = useState<T.ModelsType>({} as T.ModelsType)
   const [apiPathGroups, setApiPathGroups] = useState<T.ApiPathGroup[]>([])
 
   const saveOrUpdateCoreSettings = useCallback((newCoreSettings: T.CoreSettingsType) => {
+    const schema = z.object({
+      projectName: z.string().min(1),
+      version: z.string().min(1),
+      baseURL: z.string().min(1),
+      description: z.string().min(1),
+    })
+
+    const validationResponse = schema.safeParse(newCoreSettings)
+
+    if (!validationResponse.success) {
+      console.log('===> validationResponse.success', validationResponse.success)
+
+      addToast({
+        message: 'Please fill in all fields on the form',
+        type: 'error',
+      })
+
+      return
+    }
+
+    console.log('===> newCoreSettings', newCoreSettings)
+
     setCoreSettings(newCoreSettings)
   }, [])
 
