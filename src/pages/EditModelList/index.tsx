@@ -12,19 +12,21 @@ import { PageTitle } from '../../components/PageTitle'
 import { Plus } from '../../components/Icons'
 import { Modal } from '../../components/Modal'
 import * as ADST from '../../hooks/ApiDocStorage/types'
+import * as T from './types'
 import './styles.css'
 
 const MODEL_KEYS: Array<keyof ADST.ModelsType> = ['authModels', 'requestModels', 'responseModels']
 
 export const EditModelList: React.FC = () => {
   const {
-    models,
+    models: { authModels, requestModels, responseModels },
     saveOrUpdateAuthModel,
     saveOrUpdatePayloadModel,
   } = useApiDocStorage()
 
   const [modalIsOpened, setModalIsOpened] = useState(false)
   const [modalContentIndex, setModalContentIndex] = useState(0)
+  const [modelToEdit, setModelToEdit] = useState<T.ModelToEdit>()
 
   const toggleModalIsOpened = useCallback((contentIndex: number) => {
     setModalContentIndex(contentIndex)
@@ -36,6 +38,19 @@ export const EditModelList: React.FC = () => {
     setModalIsOpened(false)
   }, [])
 
+  const onClickInEdit = useCallback((
+    contentIndex: number,
+    index: number,
+    payload: ADST.AuthModelType | ADST.PayloadModelType,
+  ) => {
+    setModelToEdit({
+      ...payload,
+      index,
+    })
+
+    toggleModalIsOpened(contentIndex)
+  }, [])
+
   const onFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -43,37 +58,52 @@ export const EditModelList: React.FC = () => {
       target: EventTarget & { [field: string]: { value: string } }
     }
 
+    const indexToUpdate = target.index?.value
+
+    const indexToUpdateNumber = indexToUpdate !== '' ? Number(indexToUpdate) : undefined
+
     const modelKey = MODEL_KEYS[modalContentIndex]
 
     let success = false
 
     if (modelKey === 'authModels') {
-      success = saveOrUpdateAuthModel(modelKey, {
-        authTitle: target.modelName.value,
-        authType: target.modelType.value as ADST.AuthType,
-      }).success
+      success = saveOrUpdateAuthModel(
+        modelKey,
+        {
+          authTitle: target.modelName.value,
+          authType: target.modelType.value as ADST.AuthType,
+        },
+        indexToUpdateNumber
+      ).success
     } else {
-      success = saveOrUpdatePayloadModel(modelKey, {
-        payloadTitle: target.modelName.value,
-        contentType: target.modelType.value as ADST.ContentType,
-      }).success
+      success = saveOrUpdatePayloadModel(
+        modelKey,
+        {
+          payloadTitle: target.modelName.value,
+          contentType: target.modelType.value as ADST.ContentType,
+        },
+        indexToUpdateNumber
+      ).success
     }
 
-    if (success) closeModal()
+    if (success) {
+      closeModal()
+      setModelToEdit(undefined)
+    }
   }, [modalContentIndex])
 
   const MODAL_CONTENTS = [
     {
       title: 'Auth Model',
-      content: (<AuthModalContents onFormSubmit={onFormSubmit} />),
+      content: (<AuthModalContents modelToEdit={modelToEdit} onFormSubmit={onFormSubmit} />),
     },
     {
       title: 'Request Model',
-      content: (<RequestModalContents onFormSubmit={onFormSubmit} />),
+      content: (<RequestModalContents modelToEdit={modelToEdit} onFormSubmit={onFormSubmit} />),
     },
     {
       title: 'Response Model',
-      content: (<ResponseModalContents onFormSubmit={onFormSubmit} />),
+      content: (<ResponseModalContents modelToEdit={modelToEdit} onFormSubmit={onFormSubmit} />),
     },
   ]
 
@@ -90,11 +120,13 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {models.authModels.map((model, idx) => (
+        {authModels.map((model, idx) => (
           <AuthModelItemContainer
             key={idx}
+            index={idx}
             authTitle={model.authTitle ?? ''}
             authType={model.authType ?? 'Bearer Token'}
+            onClickInEdit={() => onClickInEdit(0, idx, model)}
           />
         ))}
 
@@ -106,11 +138,14 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {models.requestModels.map((model, idx) => (
+        {requestModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
+            index={idx}
+            modelGroup="requestModels"
             payloadTitle={model.payloadTitle ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
+            onClickInEdit={() => onClickInEdit(1, idx, model)}
           />
         ))}
 
@@ -122,11 +157,14 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {models.responseModels.map((model, idx) => (
+        {responseModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
+            index={idx}
+            modelGroup="responseModels"
             payloadTitle={model.payloadTitle ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
+            onClickInEdit={() => onClickInEdit(2, idx, model)}
           />
         ))}
 

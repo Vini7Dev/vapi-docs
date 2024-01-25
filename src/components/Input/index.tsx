@@ -9,6 +9,7 @@ export const Input: React.FC<T.InputProps> = ({
   placeholder,
   className = '',
   type = 'text',
+  style,
   onLoad,
   ...rest
 }) => {
@@ -20,7 +21,10 @@ export const Input: React.FC<T.InputProps> = ({
   }, [])
 
   return (
-    <div className={`input_container ${className} ${!label ? 'without_margin' : ''}`}>
+    <div
+      className={`input_container ${className} ${!label ? 'without_margin' : ''}`}
+      style={style}
+    >
       {label && <label className="input_label" htmlFor={name}>{label}</label>}
 
       <input

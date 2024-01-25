@@ -1,12 +1,18 @@
 import React, { useCallback, useState } from 'react'
 
+import { useApiDocStorage } from '../../../hooks/ApiDocStorage'
 import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
 
 export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProps> = ({
+  index,
+  modelGroup,
   payloadTitle,
   contentType,
+  onClickInEdit,
 }) => {
+  const { removeModelFromList } = useApiDocStorage()
+
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleIsOpen = useCallback(() => {
@@ -29,11 +35,17 @@ export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProp
         isOpen && (
           <div className="model_item_content_body">
             <div className="model_item_edit_delete_buttons">
-              <button className="model_item_specification_edit">
+              <button
+                className="model_item_specification_edit"
+                onClick={() => onClickInEdit(index, modelGroup, { payloadTitle, contentType })}
+              >
                 <Edit size={16} /> Edit
               </button>
 
-              <button className="model_item_specification_delete">
+              <button
+                className="model_item_specification_delete"
+                onClick={() => removeModelFromList(modelGroup, index)}
+              >
                 <Trash size={16} /> Delete
               </button>
             </div>

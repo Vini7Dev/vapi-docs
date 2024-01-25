@@ -64,7 +64,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
 
     const modelUpdatedItem = models[modelGroup]
 
-    if (indexToUpdate) modelUpdatedItem[indexToUpdate] = payload
+    if (indexToUpdate !== undefined) modelUpdatedItem[indexToUpdate] = payload
     else modelUpdatedItem.push(payload)
 
     setModels({
@@ -94,7 +94,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
       return { success: false }
     }
 
-    if (indexToUpdate) modelUpdatedItem[indexToUpdate] = payload
+    if (indexToUpdate !== undefined) modelUpdatedItem[indexToUpdate] = payload
     else modelUpdatedItem.push(payload)
 
     setModels({
@@ -142,7 +142,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   ) => {
     const groupToUpdate = apiPathGroups[groupIndex]
 
-    if (indexToUpdate) groupToUpdate.apiPaths[indexToUpdate] = payload
+    if (indexToUpdate !== undefined) groupToUpdate.apiPaths[indexToUpdate] = payload
     else groupToUpdate.apiPaths.push(payload)
 
     setApiPathGroups([
