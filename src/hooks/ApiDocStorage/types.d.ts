@@ -1,23 +1,30 @@
 type ApiDocStorageContextProps = {
-  coreSettings: T.CoreSettingsType
-  models: T.ModelsType
-  apiPathGroups: T.ApiPathGroup[]
-  saveOrUpdateCoreSettings(newCoreSettings: T.CoreSettingsType): void
-  saveOrUpdateModel(
-    modelGroup: keyof T.ModelsType,
-    payload: T.AuthModelType | T.PayloadModelType,
+  coreSettings: CoreSettingsType
+  models: ModelsType
+  apiPathGroups: ApiPathGroup[]
+  saveOrUpdateCoreSettings(newCoreSettings: CoreSettingsType): SuccessResponseType
+  saveOrUpdateAuthModel(
+    modelGroup: 'authModels',
+    payload: AuthModelType,
     indexToUpdate?: number,
-  ): void
-  removeModelFromList(modelGroup: keyof T.ModelsType, indexToRemove: number): void
-  saveOrUpdatePathGroup(payload: T.ApiPathGroup, indexToUptade?: number): void
+  ): SuccessResponseType
+  saveOrUpdatePayloadModel(
+    modelGroup: 'requestModels' | 'responseModels',
+    payload: PayloadModelType,
+    indexToUpdate?: number,
+  ): SuccessResponseType
+  removeModelFromList(modelGroup: keyof ModelsType, indexToRemove: number): void
+  saveOrUpdatePathGroup(payload: ApiPathGroup, indexToUptade?: number): SuccessResponseType
   removePathGroupFromList(indexToRemove: number): void
   saveOrUpdatePath(
     groupIndex: number,
-    payload: T.PathFromData,
+    payload: PathFromData,
     indexToUpdate?: number
-  ): void
+  ): SuccessResponseType
   removePathFromList(groupIndex: number, indexToRemove: number): void
 }
+
+type SuccessResponseType = { success: boolean }
 
 export type ApiDocType = {
   coreSettings: CoreSettingsType
@@ -38,14 +45,18 @@ export type ModelsType = {
   responseModels: PayloadModelType[]
 }
 
+export type AuthType = 'Bearer Token'
+
 export type AuthModelType = {
   authTitle?: string
-  authType?: 'Bearer Token'
+  authType?: AuthType
 }
+
+export type ContentType = 'Application/JSON'
 
 export type PayloadModelType = {
   payloadTitle?: string
-  contentType?: 'Application/JSON'
+  contentType?: ContentType
 }
 
 export type ApiPathGroup = {

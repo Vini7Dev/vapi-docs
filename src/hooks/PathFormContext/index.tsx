@@ -17,8 +17,6 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
     pathResponse: [],
   })
 
-  console.log('===> pathFormData', pathFormData)
-
   const updateFormDataField = useCallback((
     fieldName: keyof ADST.PathFromData,
     fieldValue: string,

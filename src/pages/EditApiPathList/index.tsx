@@ -124,6 +124,7 @@ export const EditApiPathList: React.FC = () => {
   }, [modalIsOpened])
 
   const closeModal = useCallback(() => {
+    document.body.classList.remove('no-scroll')
     setModalIsOpened(false)
   }, [])
 

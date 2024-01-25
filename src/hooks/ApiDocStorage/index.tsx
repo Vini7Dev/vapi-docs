@@ -18,8 +18,12 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   const { addToast } = useToast()
 
   const [coreSettings, setCoreSettings] = useState<T.CoreSettingsType>({} as T.CoreSettingsType)
-  const [models, setModels] = useState<T.ModelsType>({} as T.ModelsType)
   const [apiPathGroups, setApiPathGroups] = useState<T.ApiPathGroup[]>([])
+  const [models, setModels] = useState<T.ModelsType>({
+    authModels: [],
+    requestModels: [],
+    responseModels: [],
+  } as T.ModelsType)
 
   const saveOrUpdateCoreSettings = useCallback((newCoreSettings: T.CoreSettingsType) => {
     const schema = z.object({
@@ -32,26 +36,32 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     const validationResponse = schema.safeParse(newCoreSettings)
 
     if (!validationResponse.success) {
-      console.log('===> validationResponse.success', validationResponse.success)
-
-      addToast({
-        message: 'Please fill in all fields on the form',
-        type: 'error',
-      })
-
-      return
+      addToast({ message: 'Please fill in all fields on the form', type: 'error'})
+      return { success: false }
     }
 
-    console.log('===> newCoreSettings', newCoreSettings)
-
     setCoreSettings(newCoreSettings)
+
+    return { success: true }
   }, [])
 
-  const saveOrUpdateModel = useCallback((
-    modelGroup: keyof T.ModelsType,
-    payload: T.AuthModelType | T.PayloadModelType,
+  const saveOrUpdateAuthModel = useCallback((
+    modelGroup: 'authModels',
+    payload: T.AuthModelType,
     indexToUpdate?: number,
   ) => {
+    const schema = z.object({
+      authTitle: z.string().min(1),
+      authType: z.enum(['Bearer Token']),
+    })
+
+    const validationResponse = schema.safeParse(payload)
+
+    if (!validationResponse.success) {
+      addToast({ message: 'Please fill in all fields on the form', type: 'error' })
+      return { success: false }
+    }
+
     const modelUpdatedItem = models[modelGroup]
 
     if (indexToUpdate) modelUpdatedItem[indexToUpdate] = payload
@@ -61,6 +71,38 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
       ...models,
       [modelGroup]: modelUpdatedItem,
     })
+
+    return { success: true }
+  }, [models])
+
+  const saveOrUpdatePayloadModel = useCallback((
+    modelGroup: 'requestModels' | 'responseModels',
+    payload: T.PayloadModelType,
+    indexToUpdate?: number,
+  ) => {
+    const modelUpdatedItem = models[modelGroup]
+
+    const schema = z.object({
+      payloadTitle: z.string().min(1),
+      contentType: z.enum(['Application/JSON'])
+    })
+
+    const validationResponse = schema.safeParse(payload)
+
+    if (!validationResponse.success) {
+      addToast({ message: 'Please fill in all fields on the form', type: 'error' })
+      return { success: false }
+    }
+
+    if (indexToUpdate) modelUpdatedItem[indexToUpdate] = payload
+    else modelUpdatedItem.push(payload)
+
+    setModels({
+      ...models,
+      [modelGroup]: modelUpdatedItem,
+    })
+
+    return { success: true }
   }, [models])
 
   const removeModelFromList = useCallback((
@@ -85,6 +127,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     else updatedPathGroups.push(payload)
 
     setApiPathGroups([...updatedPathGroups])
+
+    return { success: true }
   }, [apiPathGroups])
 
   const removePathGroupFromList = useCallback((indexToRemove: number) => {
@@ -104,6 +148,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     setApiPathGroups([
       ...apiPathGroups,
     ])
+
+    return { success: true }
   }, [apiPathGroups])
 
   const removePathFromList = useCallback((
@@ -126,7 +172,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
       removePathFromList,
       removePathGroupFromList,
       saveOrUpdateCoreSettings,
-      saveOrUpdateModel,
+      saveOrUpdateAuthModel,
+      saveOrUpdatePayloadModel,
       saveOrUpdatePath,
       saveOrUpdatePathGroup,
     }}>

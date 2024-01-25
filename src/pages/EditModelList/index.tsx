@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { FormEvent, useCallback, useState } from 'react'
 
+import { useApiDocStorage } from '../../hooks/ApiDocStorage'
 import {
   AuthModalContents,
   RequestModalContents,
@@ -10,40 +11,18 @@ import { AuthModelItemContainer } from './components/AuthModelItemContainer'
 import { PageTitle } from '../../components/PageTitle'
 import { Plus } from '../../components/Icons'
 import { Modal } from '../../components/Modal'
-import * as T from './types'
+import * as ADST from '../../hooks/ApiDocStorage/types'
 import './styles.css'
 
-const AUTHENTICATION_MODELS_MOCK: T.AuthModelItemContainerProps[] = [
-  { authTitle: 'Admin Auth', authType: 'Bearer Token' },
-  { authTitle: 'Costumer Auth', authType: 'Bearer Token' },
-]
-
-const REQUEST_MODELS_MOCK: T.PayloadModelItemContainerProps[] = [
-  { payloadTitle: 'My Request Model #1', contentType: 'Application/JSON' },
-  { payloadTitle: 'My Request Model #2', contentType: 'Application/JSON' },
-]
-
-const RESPONSE_MODELS_MOCK: T.PayloadModelItemContainerProps[] = [
-  { payloadTitle: 'My Response Model #1', contentType: 'Application/JSON' },
-  { payloadTitle: 'My Response Model #2', contentType: 'Application/JSON' },
-]
-
-const MODAL_CONTENTS = [
-  {
-    title: 'Auth Model',
-    content: (<AuthModalContents />),
-  },
-  {
-    title: 'Request Model',
-    content: (<RequestModalContents />),
-  },
-  {
-    title: 'Response Model',
-    content: (<ResponseModalContents />),
-  },
-]
+const MODEL_KEYS: Array<keyof ADST.ModelsType> = ['authModels', 'requestModels', 'responseModels']
 
 export const EditModelList: React.FC = () => {
+  const {
+    models,
+    saveOrUpdateAuthModel,
+    saveOrUpdatePayloadModel,
+  } = useApiDocStorage()
+
   const [modalIsOpened, setModalIsOpened] = useState(false)
   const [modalContentIndex, setModalContentIndex] = useState(0)
 
@@ -53,8 +32,50 @@ export const EditModelList: React.FC = () => {
   }, [modalIsOpened])
 
   const closeModal = useCallback(() => {
+    document.body.classList.remove('no-scroll')
     setModalIsOpened(false)
   }, [])
+
+  const onFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const { target } = e as unknown as {
+      target: EventTarget & { [field: string]: { value: string } }
+    }
+
+    const modelKey = MODEL_KEYS[modalContentIndex]
+
+    let success = false
+
+    if (modelKey === 'authModels') {
+      success = saveOrUpdateAuthModel(modelKey, {
+        authTitle: target.modelName.value,
+        authType: target.modelType.value as ADST.AuthType,
+      }).success
+    } else {
+      success = saveOrUpdatePayloadModel(modelKey, {
+        payloadTitle: target.modelName.value,
+        contentType: target.modelType.value as ADST.ContentType,
+      }).success
+    }
+
+    if (success) closeModal()
+  }, [modalContentIndex])
+
+  const MODAL_CONTENTS = [
+    {
+      title: 'Auth Model',
+      content: (<AuthModalContents onFormSubmit={onFormSubmit} />),
+    },
+    {
+      title: 'Request Model',
+      content: (<RequestModalContents onFormSubmit={onFormSubmit} />),
+    },
+    {
+      title: 'Response Model',
+      content: (<ResponseModalContents onFormSubmit={onFormSubmit} />),
+    },
+  ]
 
   return (
     <div className="edit_model_list_container">
@@ -69,11 +90,11 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {AUTHENTICATION_MODELS_MOCK.map((model, idx) => (
+        {models.authModels.map((model, idx) => (
           <AuthModelItemContainer
             key={idx}
-            authTitle={model.authTitle}
-            authType={model.authType}
+            authTitle={model.authTitle ?? ''}
+            authType={model.authType ?? 'Bearer Token'}
           />
         ))}
 
@@ -85,11 +106,11 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {REQUEST_MODELS_MOCK.map((model, idx) => (
+        {models.requestModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            payloadTitle={model.payloadTitle}
-            contentType={model.contentType}
+            payloadTitle={model.payloadTitle ?? ''}
+            contentType={model.contentType ?? 'Application/JSON'}
           />
         ))}
 
@@ -101,11 +122,11 @@ export const EditModelList: React.FC = () => {
           </button>
         </div>
 
-        {RESPONSE_MODELS_MOCK.map((model, idx) => (
+        {models.responseModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            payloadTitle={model.payloadTitle}
-            contentType={model.contentType}
+            payloadTitle={model.payloadTitle ?? ''}
+            contentType={model.contentType ?? 'Application/JSON'}
           />
         ))}
 
