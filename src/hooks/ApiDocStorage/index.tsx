@@ -25,6 +25,12 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     responseModels: [],
   } as T.ModelsType)
 
+  const removeConfirmation = useCallback(() => {
+    const confirmation = confirm('Do you really want to remove it? This action cannot be undone.')
+
+    return confirmation
+  }, [])
+
   const saveOrUpdateCoreSettings = useCallback((newCoreSettings: T.CoreSettingsType) => {
     const schema = z.object({
       projectName: z.string().min(1),
@@ -109,11 +115,15 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     modelGroup: keyof T.ModelsType,
     indexToRemove: number,
   ) => {
+    if (!removeConfirmation()) return
+
     const modelToRemoveItem = models[modelGroup]
+
+    modelToRemoveItem.splice(indexToRemove, 1)
 
     setModels({
       ...models,
-      [modelGroup]: modelToRemoveItem.slice(indexToRemove, indexToRemove + 1),
+      [modelGroup]: modelToRemoveItem,
     })
   }, [models])
 
@@ -132,6 +142,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   }, [apiPathGroups])
 
   const removePathGroupFromList = useCallback((indexToRemove: number) => {
+    if (!removeConfirmation()) return
+
     setApiPathGroups(apiPathGroups.slice(indexToRemove, indexToRemove + 1))
   }, [apiPathGroups])
 
@@ -156,6 +168,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     groupIndex: number,
     indexToRemove: number,
   ) => {
+    if (!removeConfirmation()) return
+
     const groupToUpdate = apiPathGroups[groupIndex]
 
     groupToUpdate.apiPaths.splice(indexToRemove, 1)
