@@ -18,6 +18,7 @@ export const AuthModalContents: React.FC<T.ModalWithFormProps> = ({
         placeholder="Admin Auth"
         name="modelName"
         defaultValue={modelToEdit?.authTitle}
+        autoFocus
       />
 
       <Select
@@ -47,6 +48,7 @@ export const RequestModalContents: React.FC<T.ModalWithFormProps> = ({
         placeholder="My Request Model #1"
         name="modelName"
         defaultValue={modelToEdit?.payloadTitle}
+        autoFocus
       />
 
       <Select
@@ -76,6 +78,7 @@ export const ResponseModalContents: React.FC<T.ModalWithFormProps> = ({
         placeholder="404 My Response Model #1"
         name="modelName"
         defaultValue={modelToEdit?.payloadTitle}
+        autoFocus
       />
 
       <Select

@@ -40,6 +40,7 @@ export const EditCoreSettings: React.FC = () => {
               label="Project Name*"
               placeholder="My project name..."
               value={projectName}
+              autoFocus
               onChange={(e) => setProjectName(e.target.value)}
             />
 

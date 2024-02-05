@@ -20,6 +20,7 @@ export const PathGroupModalContents: React.FC = () => {
         label="Path Group Name*"
         placeholder="Users"
         name="pathGroupName"
+        autoFocus
       />
       <Button text="SUBMIT" height="medium" isFullWidth />
     </>
@@ -153,6 +154,7 @@ export const PathDataModalContents: React.FC = () => {
         backgroundColor="#222020"
         options={HTTP_METHODS}
         value={pathMethod}
+        autoFocus
         onChange={(e) => updateFormDataField('pathMethod', e.target.value)}
       />
 
