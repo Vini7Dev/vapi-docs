@@ -14,7 +14,7 @@ type ApiDocStorageContextProps = {
     indexToUpdate?: number,
   ): SuccessResponseType
   removeModelFromList(modelGroup: keyof ModelsType, indexToRemove: number): void
-  saveOrUpdatePathGroup(payload: ApiPathGroup, indexToUptade?: number): SuccessResponseType
+  saveOrUpdatePathGroup(payload: Omit<ApiPathGroup, 'apiPaths'>, indexToUptade?: number): SuccessResponseType
   removePathGroupFromList(indexToRemove: number): void
   saveOrUpdatePath(
     groupIndex: number,

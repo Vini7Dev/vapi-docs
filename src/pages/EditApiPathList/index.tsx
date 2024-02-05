@@ -10,6 +10,8 @@ import { PageTitle } from '../../components/PageTitle'
 import { PathGroupContainer } from './components/PathGroupContainer'
 import { Modal } from '../../components/Modal'
 import { PathFormProvider } from '../../hooks/PathFormContext'
+import { useApiDocStorage } from '../../hooks/ApiDocStorage'
+import * as T from './types'
 import './styles.css'
 
 const PATH_GROUPS_MOCK = [
@@ -99,22 +101,27 @@ const PATH_GROUPS_MOCK = [
   }
 ]
 
-const MODAL_CONTENTS = [
+const MODAL_CONTENTS: T.ModalContentsProps[] = [
   {
     title: 'Path Group',
-    content: (<PathGroupModalContents />),
+    component: ({ index, closeModal }: T.ModalContentComponentProps) => (
+      <PathGroupModalContents index={index} closeModal={closeModal} />
+    ),
   },
   {
     title: 'Path Data',
-    content: (
+    component: ({ index, closeModal }: T.ModalContentComponentProps) => (
       <PathFormProvider>
-        <PathDataModalContents />
+        <PathDataModalContents index={index} closeModal={closeModal} />
       </PathFormProvider>
     ),
   },
 ]
 
 export const EditApiPathList: React.FC = () => {
+  const { apiPathGroups } = useApiDocStorage()
+
+  const [editingIndex, setEditingIndex] = useState<number>()
   const [modalIsOpened, setModalIsOpened] = useState(false)
   const [modalContentIndex, setModalContentIndex] = useState(0)
 
@@ -126,6 +133,12 @@ export const EditApiPathList: React.FC = () => {
   const closeModal = useCallback(() => {
     document.body.classList.remove('no-scroll')
     setModalIsOpened(false)
+    setEditingIndex(undefined)
+  }, [])
+
+  const onAddEditPathGroup = useCallback((index?: number) => {
+    setEditingIndex(index)
+    toggleModalIsOpened(0)
   }, [])
 
   return (
@@ -137,16 +150,30 @@ export const EditApiPathList: React.FC = () => {
           text="Create Path Group"
           type="button"
           className="create_group_button"
-          onClick={() => toggleModalIsOpened(0)}
+          onClick={() => onAddEditPathGroup()}
           Icon={<Plus size={24} />}
         />
+
+        {apiPathGroups.map((pathGroup, idx) => (
+          <PathGroupContainer
+            key={idx}
+            index={idx}
+            pathGroupName={pathGroup.groupName}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            pathItems={pathGroup.apiPaths as any}
+            onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
+            onAddOrEditPath={() => toggleModalIsOpened(1)}
+          />
+        ))}
 
         {PATH_GROUPS_MOCK.map((pathGroup, idx) => (
           <PathGroupContainer
             key={idx}
+            index={idx}
             pathGroupName={pathGroup.pathGroupName}
             pathItems={pathGroup.pathItems}
-            togglePathDataModal={() => toggleModalIsOpened(1)}
+            onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
+            onAddOrEditPath={() => toggleModalIsOpened(1)}
           />
         ))}
       </div>
@@ -157,7 +184,12 @@ export const EditApiPathList: React.FC = () => {
             title={MODAL_CONTENTS[modalContentIndex].title}
             onClose={closeModal}
           >
-            {MODAL_CONTENTS[modalContentIndex].content}
+            {
+              MODAL_CONTENTS[modalContentIndex].component({
+                index: editingIndex,
+                closeModal,
+              })
+            }
           </Modal>
         )
       }

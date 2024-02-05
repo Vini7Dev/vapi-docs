@@ -1,9 +1,11 @@
 import * as FDT from '../../hooks/PathFormContext/types'
 
 export type PathGroupContainerProps = {
+  index: number
   pathGroupName: string
   pathItems: PathItemContrainerProps[]
-  togglePathDataModal(): void
+  onAddOrEditPathGroup(index: number): void
+  onAddOrEditPath(): void
 }
 
 export type PathItemContrainerProps = {
@@ -76,3 +78,17 @@ type FieldProps = {
 type FieldGroupValueProps = {
   [fieldName: string]: string
 }
+
+type ModalContentsProps = {
+  title: string
+  component: React.FC<PathGroupModalContentsProps>
+}
+
+type ModalContentComponentProps = {
+  index?: number
+  closeModal(): void
+}
+
+type PathGroupModalContentsProps = ModalContentComponentProps
+
+type PathDataModalContents = ModalContentComponentProps

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 
+import { useApiDocStorage } from '../../../hooks/ApiDocStorage'
 import { usePathForm } from '../../../hooks/PathFormContext'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
@@ -13,17 +14,35 @@ const AUTHENTICATIONS_MOCK = ['Admin Auth', 'Customer Auth']
 const REQUESTS_MOCK = ['#1 My Request Model', '#2 My Request Model']
 const RESPONSES_MOCK = ['#1 My Response Model', '#2 My Response Model']
 
-export const PathGroupModalContents: React.FC = () => {
+export const PathGroupModalContents: React.FC<T.PathGroupModalContentsProps> = ({
+  index,
+  closeModal,
+}) => {
+  const { apiPathGroups, saveOrUpdatePathGroup } = useApiDocStorage()
+
+  const [groupName, setGroupName] = useState(index ? apiPathGroups[index].groupName : '')
+
+  const onSubmitForm = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    saveOrUpdatePathGroup({ groupName }, index)
+
+    closeModal()
+  }, [index, groupName, closeModal])
+
   return (
-    <>
+    <form onSubmit={onSubmitForm}>
       <Input
         label="Path Group Name*"
         placeholder="Users"
         name="pathGroupName"
+        value={groupName}
         autoFocus
+        onChange={(e) => setGroupName(e.target.value)}
       />
+
       <Button text="SUBMIT" height="medium" isFullWidth />
-    </>
+    </form>
   )
 }
 
@@ -114,7 +133,7 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
   )
 }
 
-export const PathDataModalContents: React.FC = () => {
+export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
   const {
     pathFormData,
     updateFormDataField,

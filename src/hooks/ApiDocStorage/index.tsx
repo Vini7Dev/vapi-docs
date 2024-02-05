@@ -128,13 +128,13 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   }, [models])
 
   const saveOrUpdatePathGroup = useCallback((
-    payload: T.ApiPathGroup,
+    payload: Omit<T.ApiPathGroup, 'apiPaths'>,
     indexToUptade?: number,
   ) => {
     const updatedPathGroups = apiPathGroups
 
-    if (indexToUptade) updatedPathGroups[indexToUptade] = payload
-    else updatedPathGroups.push(payload)
+    if (indexToUptade) updatedPathGroups[indexToUptade].groupName = payload.groupName
+    else updatedPathGroups.push({ groupName: payload.groupName, apiPaths: [] })
 
     setApiPathGroups([...updatedPathGroups])
 
@@ -144,7 +144,9 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   const removePathGroupFromList = useCallback((indexToRemove: number) => {
     if (!removeConfirmation()) return
 
-    setApiPathGroups(apiPathGroups.slice(indexToRemove, indexToRemove + 1))
+    apiPathGroups.splice(indexToRemove, 1)
+
+    setApiPathGroups([...apiPathGroups])
   }, [apiPathGroups])
 
   const saveOrUpdatePath = useCallback((
