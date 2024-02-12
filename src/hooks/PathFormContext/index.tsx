@@ -6,7 +6,7 @@ import * as T from './types'
 const PathFormContext = createContext<T.PathFormContextProps>({} as T.PathFormContextProps)
 
 export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [pathFormData, setPathFormData] = useState<ADST.PathFromData>({
+  const [pathFormData, setPathFormData] = useState<ADST.ApiPathData>({
     pathMethod: 'GET',
     pathRoute: '',
     pathDescription: '',
@@ -18,7 +18,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   })
 
   const updateFormDataField = useCallback((
-    fieldName: keyof ADST.PathFromData,
+    fieldName: keyof ADST.ApiPathData,
     fieldValue: string,
   ) => {
     if (typeof pathFormData[fieldName] !== 'string') return
@@ -32,7 +32,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const updateFormDataFieldArray = useCallback((
-    fieldArrayName: keyof ADST.PathFromData,
+    fieldArrayName: keyof ADST.ApiPathData,
     fieldArrayValue: ADST.PathArrayItemType[],
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
@@ -46,7 +46,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const addItemOnDataFieldArray = useCallback((
-    fieldArrayName: keyof ADST.PathFromData,
+    fieldArrayName: keyof ADST.ApiPathData,
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
 
@@ -61,7 +61,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const removeItemFormDataFieldArray = useCallback((
-    fieldArrayName: keyof ADST.PathFromData,
+    fieldArrayName: keyof ADST.ApiPathData,
     indexToRemove: number,
   ) => {
     if (typeof pathFormData[fieldArrayName] !== 'object') return
@@ -75,7 +75,7 @@ export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
   }, [pathFormData])
 
   const updateItemOnDataFieldArray = useCallback((
-    fieldArrayName: keyof ADST.PathFromData,
+    fieldArrayName: keyof ADST.ApiPathData,
     indexToUpdate: number,
     fieldName: string,
     fieldValue: string,

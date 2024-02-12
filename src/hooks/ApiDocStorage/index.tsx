@@ -207,7 +207,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
 
   const saveOrUpdatePath = useCallback((
     groupIndex: number,
-    payload: T.PathFromData,
+    payload: T.ApiPathData,
     indexToUpdate?: number,
   ) => {
     const groupToUpdate = apiPathGroups[groupIndex]

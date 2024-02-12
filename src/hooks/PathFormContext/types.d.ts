@@ -1,17 +1,17 @@
 export type PathFormContextProps = {
-  pathFormData: T.PathFromData
-  updateFormDataField(fieldName: keyof T.PathFromData, fieldValue: string): void
+  pathFormData: T.ApiPathData
+  updateFormDataField(fieldName: keyof T.ApiPathData, fieldValue: string): void
   updateFormDataFieldArray(
-    fieldArrayName: keyof T.PathFromData,
+    fieldArrayName: keyof T.ApiPathData,
     fieldArrayValue: T.PathArrayItemType[],
   ): void
-  addItemOnDataFieldArray(fieldName: keyof T.PathFromData): void
+  addItemOnDataFieldArray(fieldName: keyof T.ApiPathData): void
   removeItemFormDataFieldArray(
-    fieldName: keyof T.PathFromData,
+    fieldName: keyof T.ApiPathData,
     indexToRemove: number,
   ): void
   updateItemOnDataFieldArray(
-    fieldArrayName: keyof T.PathFromData,
+    fieldArrayName: keyof T.ApiPathData,
     indexToUpdate: number,
     fieldName: string,
     fieldValue: string,

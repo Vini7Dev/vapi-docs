@@ -4,13 +4,13 @@ import * as FDT from '../../hooks/PathFormContext/types'
 export type PathGroupContainerProps = {
   id: string
   pathGroupName: string
-  apiPaths: ADST.PathFromData[]
+  apiPaths: ADST.ApiPathData[]
   onAddOrEditPathGroup(id: string): void
   onAddOrEditPath(): void
 }
 
 export type PathItemContrainerProps = {
-  pathData: ADST.PathFromData
+  pathData: ADST.ApiPathData
 }
 
 export type PathItemSectionProps = {
@@ -45,13 +45,13 @@ export type MultipleFieldsSubtitleProps = {
 export type MultipleFieldsProps = {
   fields: FieldProps[]
   fieldGroupValues: FieldGroupValueProps[]
-  fieldArrayName: keyof FDT.PathFromData
+  fieldArrayName: keyof FDT.ApiPathData
   onClickInRemove?(
-    fieldArrayName: keyof FDT.PathFromData,
+    fieldArrayName: keyof FDT.ApiPathData,
     indexToRemove: number,
   ): void
   onUpdateField(
-    fieldArrayName: keyof FDT.PathFromData,
+    fieldArrayName: keyof FDT.ApiPathData,
     indexToUpdate: number,
     fieldName: string,
     fieldValue: string
