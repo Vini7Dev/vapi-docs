@@ -48,6 +48,7 @@ export type type = 'Bearer Token'
 export type AuthModelType = {
   id: string
   title: string
+  description?: string
   type: type
 }
 

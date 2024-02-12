@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
+import { getModelById } from '../../../utils/getModelById'
 
 const PathItemSection: React.FC<T.PathItemSectionProps> = ({
   method,
@@ -103,6 +104,20 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
 
   const pathMethodLowerCase = pathMethod.toLowerCase()
 
+  const pathAuthModels = pathAuth.map(modelId => {
+    return getModelById('authModels', modelId)
+  })
+
+  const pathRequestModels = pathRequest.map(modelId => {
+    const model = getModelById('requestModels', modelId)
+    return { name: model.title, type: model.contentType }
+  })
+
+  const pathResponseModels = pathResponse.map(modelId => {
+    const model = getModelById('responseModels', modelId)
+    return { name: model.title, type: model.contentType }
+  })
+
   return (
     <div className={`path_item_container ${pathMethodLowerCase}_method_border`}>
       <div className={'path_item_header'} onClick={toggleIsOpen}>
@@ -135,11 +150,7 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
             <PathItemSection
               title="Authentication"
               method={pathMethod}
-              specifications={pathAuth.map(item => ({
-                type: 'item.authentication',
-                name: 'item.authentication',
-                description: 'item.authentication',
-              }))}
+              specifications={pathAuthModels}
             />
 
             <PathItemSection
@@ -165,19 +176,13 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
             <PathItemPayloadSection
               title="Request Body"
               method={pathMethod}
-              payloads={pathRequest.map(item => ({
-                name: 'item.request',
-                type: 'item.request',
-              }))}
+              payloads={pathRequestModels}
             />
 
             <PathItemPayloadSection
               title="Responses"
               method={pathMethod}
-              payloads={pathResponse.map(item => ({
-                name: 'item.response',
-                type: 'item.response',
-              }))}
+              payloads={pathResponseModels}
             />
           </div>
         )

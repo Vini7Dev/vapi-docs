@@ -21,6 +21,14 @@ export const AuthModalContents: React.FC<T.ModalWithFormProps> = ({
         autoFocus
       />
 
+      <Input
+        label="Auth Model Description"
+        placeholder="Admin auth token"
+        name="modelDescription"
+        defaultValue={modelToEdit?.description}
+        autoFocus
+      />
+
       <Select
         label="Auth Type*"
         name="modelType"

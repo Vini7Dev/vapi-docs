@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
 
-import { PATH_GROUPS_MOCK } from '../../mocks/apiStorageMocks'
 import {
   PathDataModalContents,
   PathGroupModalContents,
@@ -69,17 +68,6 @@ export const EditApiPathList: React.FC = () => {
         />
 
         {apiPathGroups.map((pathGroup, idx) => (
-          <PathGroupContainer
-            key={idx}
-            index={idx}
-            pathGroupName={pathGroup.groupName}
-            apiPaths={pathGroup.apiPaths}
-            onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
-            onAddOrEditPath={() => toggleModalIsOpened(1)}
-          />
-        ))}
-
-        {PATH_GROUPS_MOCK.map((pathGroup, idx) => (
           <PathGroupContainer
             key={idx}
             index={idx}

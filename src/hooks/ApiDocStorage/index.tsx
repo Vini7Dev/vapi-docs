@@ -10,6 +10,7 @@ import { z } from 'zod'
 
 import { useToast } from '../Toast'
 import * as T from './types'
+import { AUTHENTICATIONS_MOCK, PATH_GROUPS_MOCK, REQUESTS_MOCK, RESPONSES_MOCK } from '../../mocks/apiStorageMocks'
 
 const ApiDocStorageContext = createContext<T.ApiDocStorageContextProps>({} as T.ApiDocStorageContextProps)
 
@@ -19,11 +20,11 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   const { addToast } = useToast()
 
   const [coreSettings, setCoreSettings] = useState<T.CoreSettingsType>({} as T.CoreSettingsType)
-  const [apiPathGroups, setApiPathGroups] = useState<T.ApiPathGroup[]>([])
+  const [apiPathGroups, setApiPathGroups] = useState<T.ApiPathGroup[]>(PATH_GROUPS_MOCK)
   const [models, setModels] = useState<T.ModelsType>({
-    authModels: [],
-    requestModels: [],
-    responseModels: [],
+    authModels: AUTHENTICATIONS_MOCK,
+    requestModels: REQUESTS_MOCK,
+    responseModels: RESPONSES_MOCK,
   } as T.ModelsType)
 
   const removeConfirmation = useCallback(() => {
@@ -59,6 +60,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     const schema = z.object({
       id: z.string().uuid().optional(),
       title: z.string().min(1),
+      description: z.string().optional(),
       type: z.enum(['Bearer Token']),
     })
 

@@ -1,18 +1,20 @@
+import { v4 as uuidv4 } from 'uuid'
+
 import * as ADST from '../hooks/ApiDocStorage/types'
 
 export const AUTHENTICATIONS_MOCK: ADST.AuthModelType[] = [
-  { id: '0', title: 'Admin Auth', type: 'Bearer Token' },
-  { id: '1', title: 'Customer Auth', type: 'Bearer Token' },
+  { id: uuidv4(), title: 'Admin Auth', description: 'Admin auth token', type: 'Bearer Token' },
+  { id: uuidv4(), title: 'Customer Auth', description: 'Customer auth token', type: 'Bearer Token' },
 ]
 
 export const REQUESTS_MOCK: ADST.PayloadModelType[] = [
-  { id: '0', title: '#1 My Request Model', contentType: 'Application/JSON' },
-  { id: '1', title: '#2 My Request Model', contentType: 'Application/JSON' },
+  { id: uuidv4(), title: '#1 My Request Model', contentType: 'Application/JSON' },
+  { id: uuidv4(), title: '#2 My Request Model', contentType: 'Application/JSON' },
 ]
 
 export const RESPONSES_MOCK: ADST.PayloadModelType[] = [
-  { id: '0', title: '#1 My Response Model', contentType: 'Application/JSON' },
-  { id: '1', title: '#2 My Response Model', contentType: 'Application/JSON' },
+  { id: uuidv4(), title: '#1 My Response Model', contentType: 'Application/JSON' },
+  { id: uuidv4(), title: '#2 My Response Model', contentType: 'Application/JSON' },
 ]
 
 export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
@@ -34,8 +36,8 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
           type: 'string',
           description: 'Example of query param'
         }],
-        pathRequest: ['0', '1'],
-        pathResponse: ['2', '3'],
+        pathRequest: [REQUESTS_MOCK[0].id, REQUESTS_MOCK[1].id],
+        pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       },
       {
         pathMethod: 'POST',
@@ -44,14 +46,14 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
         pathAuth: [],
         pathRouteParams: [],
         pathRouteQuery: [],
-        pathRequest: ['0', '1'],
-        pathResponse: ['2', '3'],
+        pathRequest: [REQUESTS_MOCK[0].id, REQUESTS_MOCK[1].id],
+        pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       },
       {
         pathMethod: 'PUT',
         pathRoute: '/users/{id}',
         pathDescription: 'Update user',
-        pathAuth: ['4'],
+        pathAuth: [AUTHENTICATIONS_MOCK[0].id],
         pathRouteParams: [
           { param: 'id', type: 'integer', description: 'User ID to be updated' }
         ],
@@ -59,8 +61,8 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
           { param: 'example', type: 'boolean', description: 'Example of query param' },
           { param: 'example', type: 'boolean', description: 'Example of query param' },
         ],
-        pathRequest: ['0', '1'],
-        pathResponse: ['2', '3'],
+        pathRequest: [REQUESTS_MOCK[0].id, REQUESTS_MOCK[1].id],
+        pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       }
     ]
   },
@@ -76,8 +78,8 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
         pathRouteQuery: [
           { param: 'example', type: 'boolean', description: 'Example of query param' },
         ],
-        pathRequest: ['0', '1'],
-        pathResponse: ['2', '3'],
+        pathRequest: [REQUESTS_MOCK[0].id, REQUESTS_MOCK[1].id],
+        pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       },
     ],
   }

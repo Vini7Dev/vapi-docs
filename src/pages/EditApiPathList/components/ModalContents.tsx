@@ -1,6 +1,5 @@
 import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 
-import { AUTHENTICATIONS_MOCK, REQUESTS_MOCK, RESPONSES_MOCK } from '../../../mocks/apiStorageMocks'
 import { HTTP_METHODS } from '../../../utils/constants'
 import { extractTextsBetweenBraces } from '../../../utils/extractTextsBetweenBraces'
 import { useApiDocStorage } from '../../../hooks/ApiDocStorage'
@@ -131,6 +130,8 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
 }
 
 export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
+  const { models } = useApiDocStorage()
+
   const {
     pathFormData,
     updateFormDataField,
@@ -235,8 +236,8 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         fields={[{
           type: 'select',
           fieldName: 'authentication',
-          availableOptions: AUTHENTICATIONS_MOCK.map(option => option.title),
-          defaultValue: AUTHENTICATIONS_MOCK[0].title
+          availableOptions: models.authModels.map(option => option.title),
+          defaultValue: models.authModels[0].id
         }]}
         fieldGroupValues={pathAuth}
       />
@@ -253,8 +254,8 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         fields={[{
           type: 'select',
           fieldName: 'request',
-          availableOptions: REQUESTS_MOCK.map(option => option.title),
-          defaultValue: REQUESTS_MOCK[0].title
+          availableOptions: models.requestModels.map(option => option.title),
+          defaultValue: models.requestModels[0].id
         }]}
         fieldGroupValues={pathRequest}
       />
@@ -271,8 +272,8 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         fields={[{
           type: 'select',
           fieldName: 'response',
-          availableOptions: RESPONSES_MOCK.map(option => option.title),
-          defaultValue: RESPONSES_MOCK[0].title
+          availableOptions: models.responseModels.map(option => option.title),
+          defaultValue: models.responseModels[0].id
         }]}
         fieldGroupValues={pathResponse}
       />

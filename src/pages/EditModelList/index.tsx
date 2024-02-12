@@ -54,10 +54,6 @@ export const EditModelList: React.FC = () => {
       target: EventTarget & { [field: string]: { value: string } }
     }
 
-    const indexToUpdate = target.index?.value
-
-    const indexToUpdateNumber = indexToUpdate !== '' ? Number(indexToUpdate) : undefined
-
     const modelKey = MODEL_KEYS[modalContentIndex]
 
     let success = false
@@ -68,6 +64,7 @@ export const EditModelList: React.FC = () => {
         {
           id: target.id.value,
           title: target.modelName.value,
+          description: target.modelDescription.value,
           type: target.modelType.value as ADST.type,
         }
       ).success
