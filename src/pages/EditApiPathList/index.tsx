@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
+import { PATH_GROUPS_MOCK } from '../../mocks/apiStorageMocks'
 import {
   PathDataModalContents,
   PathGroupModalContents,
@@ -13,93 +14,6 @@ import { PathFormProvider } from '../../hooks/PathFormContext'
 import { useApiDocStorage } from '../../hooks/ApiDocStorage'
 import * as T from './types'
 import './styles.css'
-
-const PATH_GROUPS_MOCK = [
-  {
-    pathGroupName: 'Users',
-    pathItems: [
-      {
-        method: 'get',
-        pathRoute: '/users',
-        pathDescription: 'List all users',
-        authenticationsSection: [],
-        routeParamsSection: [],
-        queryParamsSection: [
-          { name: 'example', type: 'boolean', description: 'Example of query param' },
-          { name: 'example', type: 'boolean', description: 'Example of query param' },
-        ],
-        requestBodiesSection: [
-          { name: 'My Request Model #1', type: 'Application/JSON' },
-          { name: 'My Request Model #2', type: 'Application/JSON' },
-        ],
-        responseBodiesSection: [
-          { name: '400 My Response Model #1', type: 'Application/JSON' },
-          { name: '401 My Response Model #2', type: 'Application/JSON' },
-        ],
-      },
-      {
-        method: 'post',
-        pathRoute: '/users',
-        pathDescription: 'Create user',
-        authenticationsSection: [],
-        routeParamsSection: [],
-        queryParamsSection: [],
-        requestBodiesSection: [
-          { name: 'My Request Model #1', type: 'Application/JSON' },
-          { name: 'My Request Model #2', type: 'Application/JSON' },
-        ],
-        responseBodiesSection: [
-          { name: '400 My Response Model #1', type: 'Application/JSON' },
-          { name: '401 My Response Model #2', type: 'Application/JSON' },
-        ],
-      },
-      {
-        method: 'put',
-        pathRoute: '/users/{id}',
-        pathDescription: 'Update user',
-        authenticationsSection: [
-          { name: 'Customer Authentication', description: '(Bearer Token)' },
-        ],
-        routeParamsSection: [
-          { name: 'id', type: 'integer', description: 'User ID to be updated' }
-        ],
-        queryParamsSection: [
-          { name: 'example', type: 'boolean', description: 'Example of query param' },
-          { name: 'example', type: 'boolean', description: 'Example of query param' },
-        ],
-        requestBodiesSection: [
-          { name: 'My Request Model #1', type: 'Application/JSON' },
-          { name: 'My Request Model #2', type: 'Application/JSON' },
-        ],
-        responseBodiesSection: [
-          { name: '400 My Response Model #1', type: 'Application/JSON' },
-          { name: '401 My Response Model #2', type: 'Application/JSON' },
-        ],
-      }
-    ]
-  },
-  {
-    pathGroupName: 'Posts',
-    pathItems: [
-      {
-        method: 'get',
-        pathRoute: '/posts',
-        pathDescription: 'List all posts',
-        authenticationsSection: [],
-        routeParamsSection: [],
-        queryParamsSection: [
-          { name: 'example', type: 'boolean', description: 'Example of query param' },
-        ],
-        requestBodiesSection: [
-          { name: 'My Request Model #1', type: 'Application/JSON' },
-        ],
-        responseBodiesSection: [
-          { name: '400 My Response Model #1', type: 'Application/JSON' },
-        ],
-      },
-    ],
-  }
-]
 
 const MODAL_CONTENTS: T.ModalContentsProps[] = [
   {
@@ -159,8 +73,7 @@ export const EditApiPathList: React.FC = () => {
             key={idx}
             index={idx}
             pathGroupName={pathGroup.groupName}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            pathItems={pathGroup.apiPaths as any}
+            apiPaths={pathGroup.apiPaths}
             onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
             onAddOrEditPath={() => toggleModalIsOpened(1)}
           />
@@ -170,8 +83,8 @@ export const EditApiPathList: React.FC = () => {
           <PathGroupContainer
             key={idx}
             index={idx}
-            pathGroupName={pathGroup.pathGroupName}
-            pathItems={pathGroup.pathItems}
+            pathGroupName={pathGroup.groupName}
+            apiPaths={pathGroup.apiPaths}
             onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
             onAddOrEditPath={() => toggleModalIsOpened(1)}
           />

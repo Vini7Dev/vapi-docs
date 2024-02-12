@@ -57,8 +57,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     indexToUpdate?: number,
   ) => {
     const schema = z.object({
-      authTitle: z.string().min(1),
-      authType: z.enum(['Bearer Token']),
+      title: z.string().min(1),
+      type: z.enum(['Bearer Token']),
     })
 
     const validationResponse = schema.safeParse(payload)
@@ -89,7 +89,7 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     const modelUpdatedItem = models[modelGroup]
 
     const schema = z.object({
-      payloadTitle: z.string().min(1),
+      title: z.string().min(1),
       contentType: z.enum(['Application/JSON'])
     })
 

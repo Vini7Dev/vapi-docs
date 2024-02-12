@@ -70,8 +70,8 @@ export const EditModelList: React.FC = () => {
       success = saveOrUpdateAuthModel(
         modelKey,
         {
-          authTitle: target.modelName.value,
-          authType: target.modelType.value as ADST.AuthType,
+          title: target.modelName.value,
+          type: target.modelType.value as ADST.type,
         },
         indexToUpdateNumber
       ).success
@@ -79,7 +79,7 @@ export const EditModelList: React.FC = () => {
       success = saveOrUpdatePayloadModel(
         modelKey,
         {
-          payloadTitle: target.modelName.value,
+          title: target.modelName.value,
           contentType: target.modelType.value as ADST.ContentType,
         },
         indexToUpdateNumber
@@ -124,8 +124,8 @@ export const EditModelList: React.FC = () => {
           <AuthModelItemContainer
             key={idx}
             index={idx}
-            authTitle={model.authTitle ?? ''}
-            authType={model.authType ?? 'Bearer Token'}
+            title={model.title ?? ''}
+            type={model.type ?? 'Bearer Token'}
             onClickInEdit={() => onClickInEdit(0, idx, model)}
           />
         ))}
@@ -143,7 +143,7 @@ export const EditModelList: React.FC = () => {
             key={idx}
             index={idx}
             modelGroup="requestModels"
-            payloadTitle={model.payloadTitle ?? ''}
+            title={model.title ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
             onClickInEdit={() => onClickInEdit(1, idx, model)}
           />
@@ -162,7 +162,7 @@ export const EditModelList: React.FC = () => {
             key={idx}
             index={idx}
             modelGroup="responseModels"
-            payloadTitle={model.payloadTitle ?? ''}
+            title={model.title ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
             onClickInEdit={() => onClickInEdit(2, idx, model)}
           />

@@ -1,22 +1,16 @@
+import * as ADST from '../../hooks/ApiDocStorage/types'
 import * as FDT from '../../hooks/PathFormContext/types'
 
 export type PathGroupContainerProps = {
   index: number
   pathGroupName: string
-  pathItems: PathItemContrainerProps[]
+  apiPaths: ADST.PathFromData[]
   onAddOrEditPathGroup(index: number): void
   onAddOrEditPath(): void
 }
 
 export type PathItemContrainerProps = {
-  method: string
-  pathRoute: string
-  pathDescription: string
-  authenticationsSection: PathItemSpecificationProps[]
-  routeParamsSection: PathItemSpecificationProps[]
-  queryParamsSection: PathItemSpecificationProps[]
-  requestBodiesSection: PathItemPayloadProps[]
-  responseBodiesSection: PathItemPayloadProps[]
+  pathData: ADST.PathFromData
 }
 
 export type PathItemSectionProps = {

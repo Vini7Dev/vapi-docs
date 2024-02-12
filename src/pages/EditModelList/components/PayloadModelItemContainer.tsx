@@ -7,7 +7,7 @@ import * as T from '../types'
 export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProps> = ({
   index,
   modelGroup,
-  payloadTitle,
+  title,
   contentType,
   onClickInEdit,
 }) => {
@@ -22,7 +22,7 @@ export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProp
   return (
     <div className="model_item_section model_item_payload_section">
       <div className="model_item_header" onClick={toggleIsOpen}>
-        <strong className="model_item_header_title">{payloadTitle}</strong>
+        <strong className="model_item_header_title">{title}</strong>
 
         {
           isOpen
@@ -37,7 +37,7 @@ export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProp
             <div className="model_item_edit_delete_buttons">
               <button
                 className="model_item_specification_edit"
-                onClick={() => onClickInEdit(index, modelGroup, { payloadTitle, contentType })}
+                onClick={() => onClickInEdit(index, modelGroup, { title, contentType })}
               >
                 <Edit size={16} /> Edit
               </button>

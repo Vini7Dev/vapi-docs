@@ -1,18 +1,15 @@
 import React, { FormEvent, useCallback, useEffect, useState } from 'react'
 
+import { AUTHENTICATIONS_MOCK, REQUESTS_MOCK, RESPONSES_MOCK } from '../../../mocks/apiStorageMocks'
+import { HTTP_METHODS } from '../../../utils/constants'
+import { extractTextsBetweenBraces } from '../../../utils/extractTextsBetweenBraces'
 import { useApiDocStorage } from '../../../hooks/ApiDocStorage'
 import { usePathForm } from '../../../hooks/PathFormContext'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
 import { Select } from '../../../components/Select'
 import { Trash, Plus, Info } from '../../../components/Icons'
-import { extractTextsBetweenBraces } from '../../../utils/extractTextsBetweenBraces'
 import * as T from '../types'
-
-const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-const AUTHENTICATIONS_MOCK = ['Admin Auth', 'Customer Auth']
-const REQUESTS_MOCK = ['#1 My Request Model', '#2 My Request Model']
-const RESPONSES_MOCK = ['#1 My Response Model', '#2 My Response Model']
 
 export const PathGroupModalContents: React.FC<T.PathGroupModalContentsProps> = ({
   index,
@@ -203,8 +200,9 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         fieldArrayName="pathRouteParams"
         fieldGroupValues={pathRouteParams}
         fields={[
-          { type: 'text', fieldName: 'routeParam', disabled: true },
-          { type: 'text', fieldName: 'routeParamDescription', placeholder: 'Param description' },
+          { type: 'text', fieldName: 'param', disabled: true },
+          { type: 'text', fieldName: 'type', placeholder: 'string' },
+          { type: 'text', fieldName: 'description', placeholder: 'Param description' },
         ]}
       />
 
@@ -219,8 +217,9 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         fieldArrayName="pathRouteQuery"
         fieldGroupValues={pathRouteQuery}
         fields={[
-          { type: 'text', fieldName: 'routeQuery' },
-          { type: 'text', fieldName: 'routeQueryDescription', placeholder: 'Query param description' },
+          { type: 'text', fieldName: 'param' },
+          { type: 'text', fieldName: 'type', placeholder: 'string' },
+          { type: 'text', fieldName: 'description', placeholder: 'Query param description' },
         ]}
       />
 
@@ -233,7 +232,12 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         onClickInRemove={removeItemFormDataFieldArray}
         onUpdateField={updateItemOnDataFieldArray}
         fieldArrayName="pathAuth"
-        fields={[{ type: 'select', fieldName: 'authentication', availableOptions: AUTHENTICATIONS_MOCK, defaultValue: AUTHENTICATIONS_MOCK[0] }]}
+        fields={[{
+          type: 'select',
+          fieldName: 'authentication',
+          availableOptions: AUTHENTICATIONS_MOCK.map(option => option.title),
+          defaultValue: AUTHENTICATIONS_MOCK[0].title
+        }]}
         fieldGroupValues={pathAuth}
       />
 
@@ -246,7 +250,12 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         onClickInRemove={removeItemFormDataFieldArray}
         onUpdateField={updateItemOnDataFieldArray}
         fieldArrayName="pathRequest"
-        fields={[{ type: 'select', fieldName: 'request', availableOptions: REQUESTS_MOCK, defaultValue: REQUESTS_MOCK[0] }]}
+        fields={[{
+          type: 'select',
+          fieldName: 'request',
+          availableOptions: REQUESTS_MOCK.map(option => option.title),
+          defaultValue: REQUESTS_MOCK[0].title
+        }]}
         fieldGroupValues={pathRequest}
       />
 
@@ -259,7 +268,12 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
         onClickInRemove={removeItemFormDataFieldArray}
         onUpdateField={updateItemOnDataFieldArray}
         fieldArrayName="pathResponse"
-        fields={[{ type: 'select', fieldName: 'response', availableOptions: RESPONSES_MOCK, defaultValue: RESPONSES_MOCK[0] }]}
+        fields={[{
+          type: 'select',
+          fieldName: 'response',
+          availableOptions: RESPONSES_MOCK.map(option => option.title),
+          defaultValue: RESPONSES_MOCK[0].title
+        }]}
         fieldGroupValues={pathResponse}
       />
 

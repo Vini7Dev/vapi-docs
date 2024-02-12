@@ -17,7 +17,7 @@ export const AuthModalContents: React.FC<T.ModalWithFormProps> = ({
         label="Auth Model Name*"
         placeholder="Admin Auth"
         name="modelName"
-        defaultValue={modelToEdit?.authTitle}
+        defaultValue={modelToEdit?.title}
         autoFocus
       />
 
@@ -27,7 +27,7 @@ export const AuthModalContents: React.FC<T.ModalWithFormProps> = ({
         placeholder="Select the auth type"
         options={['Bearer Token']}
         backgroundColor="#222020"
-        defaultValue={modelToEdit?.authType}
+        defaultValue={modelToEdit?.type}
       />
 
       <Button text="SUBMIT" type="submit" height="medium" isFullWidth />
@@ -47,7 +47,7 @@ export const RequestModalContents: React.FC<T.ModalWithFormProps> = ({
         label="Request Model Name*"
         placeholder="My Request Model #1"
         name="modelName"
-        defaultValue={modelToEdit?.payloadTitle}
+        defaultValue={modelToEdit?.title}
         autoFocus
       />
 
@@ -77,7 +77,7 @@ export const ResponseModalContents: React.FC<T.ModalWithFormProps> = ({
         label="Response Model Name*"
         placeholder="404 My Response Model #1"
         name="modelName"
-        defaultValue={modelToEdit?.payloadTitle}
+        defaultValue={modelToEdit?.title}
         autoFocus
       />
 

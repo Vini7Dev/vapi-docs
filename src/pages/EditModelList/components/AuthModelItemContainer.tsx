@@ -6,22 +6,22 @@ import * as T from '../types'
 
 export const AuthModelItemContainer: React.FC<T.AuthModelItemContainerProps> = ({
   index,
-  authTitle,
-  authType,
+  title,
+  type,
   onClickInEdit,
 }) => {
   const { removeModelFromList } = useApiDocStorage()
 
   return (
     <div className="model_item_section model_item_auth_section">
-      <strong className="model_item_header_title">{authTitle}</strong>
+      <strong className="model_item_header_title">{title}</strong>
 
-      <span>{authType}</span>
+      <span>{type}</span>
 
       <div className="model_item_edit_delete_buttons">
         <button
           className="model_item_specification_edit"
-          onClick={() => onClickInEdit(index, 'authModels', { authTitle, authType })}
+          onClick={() => onClickInEdit(index, 'authModels', { title, type })}
         >
           <Edit size={16} /> Edit
         </button>

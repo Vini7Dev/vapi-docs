@@ -8,7 +8,7 @@ import * as T from '../types'
 export const PathGroupContainer: React.FC<T.PathGroupContainerProps> = ({
   index,
   pathGroupName,
-  pathItems,
+  apiPaths,
   onAddOrEditPathGroup,
   onAddOrEditPath,
 }) => {
@@ -33,18 +33,8 @@ export const PathGroupContainer: React.FC<T.PathGroupContainerProps> = ({
       </div>
 
       {
-        pathItems.map((pathItem, idx) => (
-          <PathItemContrainer
-            key={idx}
-            method={pathItem.method}
-            pathRoute={pathItem.pathRoute}
-            pathDescription={pathItem.pathDescription}
-            authenticationsSection={pathItem.authenticationsSection}
-            routeParamsSection={pathItem.routeParamsSection}
-            queryParamsSection={pathItem.queryParamsSection}
-            requestBodiesSection={pathItem.requestBodiesSection}
-            responseBodiesSection={pathItem.responseBodiesSection}
-          />
+        apiPaths.map((pathData, idx) => (
+          <PathItemContrainer key={idx} pathData={pathData} />
         ))
       }
     </div>

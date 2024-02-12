@@ -84,14 +84,16 @@ const PathItemPayloadSection: React.FC<T.PathItemPayloadSectionProps> = ({
 }
 
 export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
-  method,
-  pathRoute,
-  pathDescription,
-  authenticationsSection,
-  queryParamsSection,
-  requestBodiesSection,
-  responseBodiesSection,
-  routeParamsSection,
+  pathData: {
+    pathMethod,
+    pathRoute,
+    pathDescription,
+    pathRouteParams,
+    pathRouteQuery,
+    pathAuth,
+    pathRequest,
+    pathResponse,
+  },
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -99,10 +101,12 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
     setIsOpen(!isOpen)
   }, [isOpen])
 
+  const pathMethodLowerCase = pathMethod.toLowerCase()
+
   return (
-    <div className={`path_item_container ${method}_method_border`}>
+    <div className={`path_item_container ${pathMethodLowerCase}_method_border`}>
       <div className={'path_item_header'} onClick={toggleIsOpen}>
-        <strong className={`path_method ${method}_method_color`}>{method}</strong>
+        <strong className={`path_method ${pathMethodLowerCase}_method_color`}>{pathMethodLowerCase}</strong>
 
         <span className={'path_route'}>{pathRoute}</span>
 
@@ -110,8 +114,8 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
 
         {
           isOpen
-            ? <ArrowDown className={`path_specification_arrow ${method}_method_color`} size={18} />
-            : <ArrowRight className={`${method}_method_color`} size={18} />
+            ? <ArrowDown className={`path_specification_arrow ${pathMethodLowerCase}_method_color`} size={18} />
+            : <ArrowRight className={`${pathMethodLowerCase}_method_color`} size={18} />
         }
       </div>
 
@@ -130,32 +134,50 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
 
             <PathItemSection
               title="Authentication"
-              method={method}
-              specifications={authenticationsSection}
+              method={pathMethod}
+              specifications={pathAuth.map(item => ({
+                type: 'item.authentication',
+                name: 'item.authentication',
+                description: 'item.authentication',
+              }))}
             />
 
             <PathItemSection
               title="Route Params"
-              method={method}
-              specifications={routeParamsSection}
+              method={pathMethod}
+              specifications={pathRouteParams.map(item => ({
+                type: item.type,
+                name: item.param,
+                description: item.description,
+              }))}
             />
 
             <PathItemSection
               title="Query Params"
-              method={method}
-              specifications={queryParamsSection}
+              method={pathMethod}
+              specifications={pathRouteQuery.map(item => ({
+                type: item.type,
+                name: item.param,
+                description: item.description,
+              }))}
             />
 
             <PathItemPayloadSection
               title="Request Body"
-              method={method}
-              payloads={requestBodiesSection}
+              method={pathMethod}
+              payloads={pathRequest.map(item => ({
+                name: 'item.request',
+                type: 'item.request',
+              }))}
             />
 
             <PathItemPayloadSection
               title="Responses"
-              method={method}
-              payloads={responseBodiesSection}
+              method={pathMethod}
+              payloads={pathResponse.map(item => ({
+                name: 'item.response',
+                type: 'item.response',
+              }))}
             />
           </div>
         )

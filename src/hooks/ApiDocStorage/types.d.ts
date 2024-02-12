@@ -45,18 +45,18 @@ export type ModelsType = {
   responseModels: PayloadModelType[]
 }
 
-export type AuthType = 'Bearer Token'
+export type type = 'Bearer Token'
 
 export type AuthModelType = {
-  authTitle?: string
-  authType?: AuthType
+  title: string
+  type: type
 }
 
 export type ContentType = 'Application/JSON'
 
 export type PayloadModelType = {
-  payloadTitle?: string
-  contentType?: ContentType
+  title: string
+  contentType: ContentType
 }
 
 export type ApiPathGroup = {
@@ -70,27 +70,29 @@ export type PathFromData = {
   pathDescription: string
   pathRouteParams: RouteParamType[]
   pathRouteQuery: QueryParamType[]
-  pathAuth: AuthenticationType[]
-  pathRequest: RequestType[]
-  pathResponse: ResponseType[]
+  pathAuth: AuthenticationIdType[]
+  pathRequest: RequestIdType[]
+  pathResponse: ResponseIdType[]
 }
 
 export type HttpMethods = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 
+export type RouteParamType = {
+  param: string
+  type: string
+  description: string
+}
+
+export type QueryParamType = {
+  param: string
+  type: string
+  description: string
+}
+
+export type AuthenticationIdType = string
+
+export type RequestIdType = string
+
+export type ResponseIdType = string
+
 export type PathArrayItemType = { [key: string]: string }
-
-export interface RouteParamType extends PathArrayItemType {
-  routeParam: string;
-  routeParamDescription: string
-}
-
-export interface QueryParamType extends PathArrayItemType {
-  routeQuery: string;
-  routeQueryDescription: string
-}
-
-export interface AuthenticationType extends PathArrayItemType { authentication: string }
-
-export interface RequestType extends PathArrayItemType { request: string }
-
-export interface ResponseType extends PathArrayItemType { response: string }

@@ -2,8 +2,8 @@ import * as ADST from '../../hooks/ApiDocStorage/types'
 
 export type AuthModelItemContainerProps = {
   index: number
-  authTitle: string
-  authType: 'Bearer Token'
+  title: string
+  type: 'Bearer Token'
   onClickInEdit(
     index: number,
     modelGroup: keyof ADST.ModelsType,
@@ -14,7 +14,7 @@ export type AuthModelItemContainerProps = {
 export type PayloadModelItemContainerProps = {
   index: number
   modelGroup: 'requestModels' | 'responseModels'
-  payloadTitle: string
+  title: string
   contentType: 'Application/JSON'
   onClickInEdit(
     index: number,
