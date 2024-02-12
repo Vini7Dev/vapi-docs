@@ -5,7 +5,7 @@ import { Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
 
 export const AuthModelItemContainer: React.FC<T.AuthModelItemContainerProps> = ({
-  index,
+  id,
   title,
   type,
   onClickInEdit,
@@ -21,14 +21,14 @@ export const AuthModelItemContainer: React.FC<T.AuthModelItemContainerProps> = (
       <div className="model_item_edit_delete_buttons">
         <button
           className="model_item_specification_edit"
-          onClick={() => onClickInEdit(index, 'authModels', { title, type })}
+          onClick={() => onClickInEdit('authModels', { id, title, type })}
         >
           <Edit size={16} /> Edit
         </button>
 
         <button
           className="model_item_specification_delete"
-          onClick={() => removeModelFromList('authModels', index)}
+          onClick={() => removeModelFromList('authModels', id)}
         >
           <Trash size={16} /> Delete
         </button>

@@ -6,14 +6,12 @@ type ApiDocStorageContextProps = {
   saveOrUpdateAuthModel(
     modelGroup: 'authModels',
     payload: AuthModelType,
-    indexToUpdate?: number,
   ): SuccessResponseType
   saveOrUpdatePayloadModel(
     modelGroup: 'requestModels' | 'responseModels',
     payload: PayloadModelType,
-    indexToUpdate?: number,
   ): SuccessResponseType
-  removeModelFromList(modelGroup: keyof ModelsType, indexToRemove: number): void
+  removeModelFromList(modelGroup: keyof ModelsType, modelId: string): void
   saveOrUpdatePathGroup(payload: Omit<ApiPathGroup, 'apiPaths'>, indexToUptade?: number): SuccessResponseType
   removePathGroupFromList(indexToRemove: number): void
   saveOrUpdatePath(
@@ -48,6 +46,7 @@ export type ModelsType = {
 export type type = 'Bearer Token'
 
 export type AuthModelType = {
+  id: string
   title: string
   type: type
 }
@@ -55,6 +54,7 @@ export type AuthModelType = {
 export type ContentType = 'Application/JSON'
 
 export type PayloadModelType = {
+  id: string
   title: string
   contentType: ContentType
 }

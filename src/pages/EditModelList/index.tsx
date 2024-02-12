@@ -40,13 +40,9 @@ export const EditModelList: React.FC = () => {
 
   const onClickInEdit = useCallback((
     contentIndex: number,
-    index: number,
     payload: ADST.AuthModelType | ADST.PayloadModelType,
   ) => {
-    setModelToEdit({
-      ...payload,
-      index,
-    })
+    setModelToEdit(payload)
 
     toggleModalIsOpened(contentIndex)
   }, [])
@@ -70,19 +66,19 @@ export const EditModelList: React.FC = () => {
       success = saveOrUpdateAuthModel(
         modelKey,
         {
+          id: target.id.value,
           title: target.modelName.value,
           type: target.modelType.value as ADST.type,
-        },
-        indexToUpdateNumber
+        }
       ).success
     } else {
       success = saveOrUpdatePayloadModel(
         modelKey,
         {
+          id: target.id.value,
           title: target.modelName.value,
           contentType: target.modelType.value as ADST.ContentType,
-        },
-        indexToUpdateNumber
+        }
       ).success
     }
 
@@ -123,10 +119,10 @@ export const EditModelList: React.FC = () => {
         {authModels.map((model, idx) => (
           <AuthModelItemContainer
             key={idx}
-            index={idx}
+            id={model.id}
             title={model.title ?? ''}
             type={model.type ?? 'Bearer Token'}
-            onClickInEdit={() => onClickInEdit(0, idx, model)}
+            onClickInEdit={() => onClickInEdit(0, model)}
           />
         ))}
 
@@ -141,11 +137,11 @@ export const EditModelList: React.FC = () => {
         {requestModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            index={idx}
+            id={model.id}
             modelGroup="requestModels"
             title={model.title ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
-            onClickInEdit={() => onClickInEdit(1, idx, model)}
+            onClickInEdit={() => onClickInEdit(1, model)}
           />
         ))}
 
@@ -160,11 +156,11 @@ export const EditModelList: React.FC = () => {
         {responseModels.map((model, idx) => (
           <PayloadModelItemContainer
             key={idx}
-            index={idx}
+            id={model.id}
             modelGroup="responseModels"
             title={model.title ?? ''}
             contentType={model.contentType ?? 'Application/JSON'}
-            onClickInEdit={() => onClickInEdit(2, idx, model)}
+            onClickInEdit={() => onClickInEdit(2, model)}
           />
         ))}
 

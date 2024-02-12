@@ -1,18 +1,18 @@
 import * as ADST from '../hooks/ApiDocStorage/types'
 
 export const AUTHENTICATIONS_MOCK: ADST.AuthModelType[] = [
-  { title: 'Admin Auth', type: 'Bearer Token' },
-  { title: 'Customer Auth', type: 'Bearer Token' },
+  { id: '0', title: 'Admin Auth', type: 'Bearer Token' },
+  { id: '1', title: 'Customer Auth', type: 'Bearer Token' },
 ]
 
 export const REQUESTS_MOCK: ADST.PayloadModelType[] = [
-  { title: '#1 My Request Model', contentType: 'Application/JSON' },
-  { title: '#2 My Request Model', contentType: 'Application/JSON' },
+  { id: '0', title: '#1 My Request Model', contentType: 'Application/JSON' },
+  { id: '1', title: '#2 My Request Model', contentType: 'Application/JSON' },
 ]
 
 export const RESPONSES_MOCK: ADST.PayloadModelType[] = [
-  { title: '#1 My Response Model', contentType: 'Application/JSON' },
-  { title: '#2 My Response Model', contentType: 'Application/JSON' },
+  { id: '0', title: '#1 My Response Model', contentType: 'Application/JSON' },
+  { id: '1', title: '#2 My Response Model', contentType: 'Application/JSON' },
 ]
 
 export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [

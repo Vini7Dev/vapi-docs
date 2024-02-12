@@ -11,7 +11,7 @@ export const AuthModalContents: React.FC<T.ModalWithFormProps> = ({
 }) => {
   return (
     <form onSubmit={onFormSubmit}>
-      <Input name="index" value={modelToEdit?.index} style={{ display: 'none' }} />
+      <Input name="id" value={modelToEdit?.id} style={{ display: 'none' }} />
 
       <Input
         label="Auth Model Name*"
@@ -41,7 +41,7 @@ export const RequestModalContents: React.FC<T.ModalWithFormProps> = ({
 }) => {
   return (
     <form onSubmit={onFormSubmit}>
-      <Input name="index" value={modelToEdit?.index} style={{ display: 'none' }} />
+      <Input name="id" value={modelToEdit?.id} style={{ display: 'none' }} />
 
       <Input
         label="Request Model Name*"
@@ -71,7 +71,7 @@ export const ResponseModalContents: React.FC<T.ModalWithFormProps> = ({
 }) => {
   return (
     <form onSubmit={onFormSubmit}>
-      <Input name="index" defaultValue={modelToEdit?.index} style={{ display: 'none' }} />
+      <Input name="id" defaultValue={modelToEdit?.id} style={{ display: 'none' }} />
 
       <Input
         label="Response Model Name*"

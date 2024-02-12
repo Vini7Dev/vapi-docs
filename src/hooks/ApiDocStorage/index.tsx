@@ -5,6 +5,7 @@ import React, {
   useContext,
   useState,
 } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 
 import { useToast } from '../Toast'
@@ -54,14 +55,16 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   const saveOrUpdateAuthModel = useCallback((
     modelGroup: 'authModels',
     payload: T.AuthModelType,
-    indexToUpdate?: number,
   ) => {
     const schema = z.object({
+      id: z.string().uuid().optional(),
       title: z.string().min(1),
       type: z.enum(['Bearer Token']),
     })
 
-    const validationResponse = schema.safeParse(payload)
+    const payloadParsed = { ...payload, id: payload.id || undefined }
+
+    const validationResponse = schema.safeParse(payloadParsed)
 
     if (!validationResponse.success) {
       addToast({ message: 'Please fill in all fields on the form', type: 'error' })
@@ -70,8 +73,18 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
 
     const modelUpdatedItem = models[modelGroup]
 
-    if (indexToUpdate !== undefined) modelUpdatedItem[indexToUpdate] = payload
-    else modelUpdatedItem.push(payload)
+    if (!payload.id) {
+      modelUpdatedItem.push({
+        ...payload,
+        id: uuidv4(),
+      })
+    } else {
+      const modelIndexToUpdate = modelUpdatedItem.findIndex(model => model.id === payload.id)
+
+      if (modelIndexToUpdate === -1) return { success: false }
+
+      modelUpdatedItem[modelIndexToUpdate] = payload
+    }
 
     setModels({
       ...models,
@@ -84,24 +97,36 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   const saveOrUpdatePayloadModel = useCallback((
     modelGroup: 'requestModels' | 'responseModels',
     payload: T.PayloadModelType,
-    indexToUpdate?: number,
   ) => {
     const modelUpdatedItem = models[modelGroup]
 
     const schema = z.object({
+      id: z.string().uuid().optional(),
       title: z.string().min(1),
       contentType: z.enum(['Application/JSON'])
     })
 
-    const validationResponse = schema.safeParse(payload)
+    const payloadParsed = { ...payload, id: payload.id || undefined }
+
+    const validationResponse = schema.safeParse(payloadParsed)
 
     if (!validationResponse.success) {
       addToast({ message: 'Please fill in all fields on the form', type: 'error' })
       return { success: false }
     }
 
-    if (indexToUpdate !== undefined) modelUpdatedItem[indexToUpdate] = payload
-    else modelUpdatedItem.push(payload)
+    if (!payload.id) {
+      modelUpdatedItem.push({
+        ...payload,
+        id: uuidv4(),
+      })
+    } else {
+      const modelIndexToUpdate = modelUpdatedItem.findIndex(model => model.id === payload.id)
+
+      if (modelIndexToUpdate === -1) return { success: false }
+
+      modelUpdatedItem[modelIndexToUpdate] = payload
+    }
 
     setModels({
       ...models,
@@ -113,13 +138,17 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
 
   const removeModelFromList = useCallback((
     modelGroup: keyof T.ModelsType,
-    indexToRemove: number,
+    modelId: string,
   ) => {
     if (!removeConfirmation()) return
 
     const modelToRemoveItem = models[modelGroup]
 
-    modelToRemoveItem.splice(indexToRemove, 1)
+    const modelIndexToRemove = modelToRemoveItem.findIndex(model => model.id === modelId)
+
+    if (modelIndexToRemove === -1) return
+
+    modelToRemoveItem.splice(modelIndexToRemove, 1)
 
     setModels({
       ...models,

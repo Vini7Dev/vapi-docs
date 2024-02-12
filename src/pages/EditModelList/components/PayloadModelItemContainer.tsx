@@ -5,8 +5,8 @@ import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
 
 export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProps> = ({
-  index,
   modelGroup,
+  id,
   title,
   contentType,
   onClickInEdit,
@@ -37,14 +37,14 @@ export const PayloadModelItemContainer: React.FC<T.PayloadModelItemContainerProp
             <div className="model_item_edit_delete_buttons">
               <button
                 className="model_item_specification_edit"
-                onClick={() => onClickInEdit(index, modelGroup, { title, contentType })}
+                onClick={() => onClickInEdit(modelGroup, { id, title, contentType })}
               >
                 <Edit size={16} /> Edit
               </button>
 
               <button
                 className="model_item_specification_delete"
-                onClick={() => removeModelFromList(modelGroup, index)}
+                onClick={() => removeModelFromList(modelGroup, id)}
               >
                 <Trash size={16} /> Delete
               </button>
