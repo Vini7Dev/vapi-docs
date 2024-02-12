@@ -11,20 +11,22 @@ import { Trash, Plus, Info } from '../../../components/Icons'
 import * as T from '../types'
 
 export const PathGroupModalContents: React.FC<T.PathGroupModalContentsProps> = ({
-  index,
+  id,
   closeModal,
 }) => {
   const { apiPathGroups, saveOrUpdatePathGroup } = useApiDocStorage()
 
-  const [groupName, setGroupName] = useState(index ? apiPathGroups[index].groupName : '')
+  const groupToEdit = apiPathGroups.find(group => group.id === id)
+
+  const [groupName, setGroupName] = useState(groupToEdit?.groupName ?? '')
 
   const onSubmitForm = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    saveOrUpdatePathGroup({ groupName }, index)
+    const { success } = saveOrUpdatePathGroup({ id: groupToEdit?.id, groupName })
 
-    closeModal()
-  }, [index, groupName, closeModal])
+    if (success) closeModal()
+  }, [groupToEdit, groupName, closeModal])
 
   return (
     <form onSubmit={onSubmitForm}>

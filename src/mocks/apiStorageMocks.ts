@@ -19,6 +19,7 @@ export const RESPONSES_MOCK: ADST.PayloadModelType[] = [
 
 export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
   {
+    id: uuidv4(),
     groupName: 'Users',
     apiPaths: [
       {
@@ -67,6 +68,7 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
     ]
   },
   {
+    id: uuidv4(),
     groupName: 'Posts',
     apiPaths: [
       {

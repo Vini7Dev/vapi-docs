@@ -2,10 +2,10 @@ import * as ADST from '../../hooks/ApiDocStorage/types'
 import * as FDT from '../../hooks/PathFormContext/types'
 
 export type PathGroupContainerProps = {
-  index: number
+  id: string
   pathGroupName: string
   apiPaths: ADST.PathFromData[]
-  onAddOrEditPathGroup(index: number): void
+  onAddOrEditPathGroup(id: string): void
   onAddOrEditPath(): void
 }
 
@@ -79,7 +79,7 @@ type ModalContentsProps = {
 }
 
 type ModalContentComponentProps = {
-  index?: number
+  id?: string
   closeModal(): void
 }
 

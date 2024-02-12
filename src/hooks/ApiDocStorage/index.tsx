@@ -100,8 +100,6 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
     modelGroup: 'requestModels' | 'responseModels',
     payload: T.PayloadModelType,
   ) => {
-    const modelUpdatedItem = models[modelGroup]
-
     const schema = z.object({
       id: z.string().uuid().optional(),
       title: z.string().min(1),
@@ -116,6 +114,8 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
       addToast({ message: 'Please fill in all fields on the form', type: 'error' })
       return { success: false }
     }
+
+    const modelUpdatedItem = models[modelGroup]
 
     if (!payload.id) {
       modelUpdatedItem.push({
@@ -159,23 +159,48 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   }, [models])
 
   const saveOrUpdatePathGroup = useCallback((
-    payload: Omit<T.ApiPathGroup, 'apiPaths'>,
-    indexToUptade?: number,
+    payload: Omit<T.ApiPathGroup, 'apiPaths'>
   ) => {
+    const schema = z.object({
+      id: z.string().uuid().optional(),
+      groupName: z.string().min(1),
+    })
+
+    const payloadParsed = { ...payload, id: payload.id || undefined }
+
+    const validationResponse = schema.safeParse(payloadParsed)
+
+    if (!validationResponse.success) {
+      addToast({ message: 'Please fill in all fields on the form', type: 'error' })
+      return { success: false }
+    }
+
     const updatedPathGroups = apiPathGroups
 
-    if (indexToUptade) updatedPathGroups[indexToUptade].groupName = payload.groupName
-    else updatedPathGroups.push({ groupName: payload.groupName, apiPaths: [] })
+    if (!payload.id) {
+      updatedPathGroups.push({ ...payload, id: uuidv4(), apiPaths: [] })
+    }
+    else {
+      const modelIndexToUpdate = updatedPathGroups.findIndex(path => path.id === payload.id)
+
+      if (modelIndexToUpdate === -1) return { success: false }
+
+      updatedPathGroups[modelIndexToUpdate].groupName = payload.groupName
+    }
 
     setApiPathGroups([...updatedPathGroups])
 
     return { success: true }
   }, [apiPathGroups])
 
-  const removePathGroupFromList = useCallback((indexToRemove: number) => {
+  const removePathGroupFromList = useCallback((id: string) => {
     if (!removeConfirmation()) return
 
-    apiPathGroups.splice(indexToRemove, 1)
+    const groupIndexToRemove = apiPathGroups.findIndex(group => group.id === id)
+
+    if (groupIndexToRemove === -1) return
+
+    apiPathGroups.splice(groupIndexToRemove, 1)
 
     setApiPathGroups([...apiPathGroups])
   }, [apiPathGroups])

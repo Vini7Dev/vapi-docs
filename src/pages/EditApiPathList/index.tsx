@@ -17,15 +17,15 @@ import './styles.css'
 const MODAL_CONTENTS: T.ModalContentsProps[] = [
   {
     title: 'Path Group',
-    component: ({ index, closeModal }: T.ModalContentComponentProps) => (
-      <PathGroupModalContents index={index} closeModal={closeModal} />
+    component: ({ id, closeModal }: T.ModalContentComponentProps) => (
+      <PathGroupModalContents id={id} closeModal={closeModal} />
     ),
   },
   {
     title: 'Path Data',
-    component: ({ index, closeModal }: T.ModalContentComponentProps) => (
+    component: ({ id, closeModal }: T.ModalContentComponentProps) => (
       <PathFormProvider>
-        <PathDataModalContents index={index} closeModal={closeModal} />
+        <PathDataModalContents id={id} closeModal={closeModal} />
       </PathFormProvider>
     ),
   },
@@ -34,7 +34,7 @@ const MODAL_CONTENTS: T.ModalContentsProps[] = [
 export const EditApiPathList: React.FC = () => {
   const { apiPathGroups } = useApiDocStorage()
 
-  const [editingIndex, setEditingIndex] = useState<number>()
+  const [editingId, setEditingId] = useState<string>()
   const [modalIsOpened, setModalIsOpened] = useState(false)
   const [modalContentIndex, setModalContentIndex] = useState(0)
 
@@ -46,11 +46,11 @@ export const EditApiPathList: React.FC = () => {
   const closeModal = useCallback(() => {
     document.body.classList.remove('no-scroll')
     setModalIsOpened(false)
-    setEditingIndex(undefined)
+    setEditingId(undefined)
   }, [])
 
-  const onAddEditPathGroup = useCallback((index?: number) => {
-    setEditingIndex(index)
+  const onAddEditPathGroup = useCallback((id?: string) => {
+    setEditingId(id)
     toggleModalIsOpened(0)
   }, [])
 
@@ -70,10 +70,10 @@ export const EditApiPathList: React.FC = () => {
         {apiPathGroups.map((pathGroup, idx) => (
           <PathGroupContainer
             key={idx}
-            index={idx}
+            id={pathGroup.id ?? ''}
             pathGroupName={pathGroup.groupName}
             apiPaths={pathGroup.apiPaths}
-            onAddOrEditPathGroup={() => onAddEditPathGroup(idx)}
+            onAddOrEditPathGroup={() => onAddEditPathGroup(pathGroup.id)}
             onAddOrEditPath={() => toggleModalIsOpened(1)}
           />
         ))}
@@ -87,7 +87,7 @@ export const EditApiPathList: React.FC = () => {
           >
             {
               MODAL_CONTENTS[modalContentIndex].component({
-                index: editingIndex,
+                id: editingId,
                 closeModal,
               })
             }

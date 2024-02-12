@@ -6,7 +6,7 @@ import { PathItemContrainer } from './PathItemContrainer'
 import * as T from '../types'
 
 export const PathGroupContainer: React.FC<T.PathGroupContainerProps> = ({
-  index,
+  id,
   pathGroupName,
   apiPaths,
   onAddOrEditPathGroup,
@@ -23,11 +23,11 @@ export const PathGroupContainer: React.FC<T.PathGroupContainerProps> = ({
           <Plus size={20} /> Add Path
         </button>
 
-        <button className="path_group_edit" onClick={() => onAddOrEditPathGroup(index)}>
+        <button className="path_group_edit" onClick={() => onAddOrEditPathGroup(id)}>
           <Edit size={20} /> Edit
         </button>
 
-        <button className="path_group_delete" onClick={() => removePathGroupFromList(index)}>
+        <button className="path_group_delete" onClick={() => removePathGroupFromList(id)}>
           <Trash size={20} /> Delete
         </button>
       </div>
