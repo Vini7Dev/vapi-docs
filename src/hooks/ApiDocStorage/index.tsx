@@ -11,6 +11,7 @@ import { z } from 'zod'
 import { useToast } from '../Toast'
 import * as T from './types'
 import { AUTHENTICATIONS_MOCK, PATH_GROUPS_MOCK, REQUESTS_MOCK, RESPONSES_MOCK } from '../../mocks/apiStorageMocks'
+import { HTTP_METHODS } from '../../utils/constants'
 
 const ApiDocStorageContext = createContext<T.ApiDocStorageContextProps>({} as T.ApiDocStorageContextProps)
 
@@ -206,14 +207,53 @@ export const ApiDocStorageProvider: React.FC<PropsWithChildren> = ({
   }, [apiPathGroups])
 
   const saveOrUpdatePath = useCallback((
-    groupIndex: number,
+    groupId: string,
     payload: T.ApiPathData,
-    indexToUpdate?: number,
   ) => {
-    const groupToUpdate = apiPathGroups[groupIndex]
+    const schema = z.object({
+      id: z.string().uuid().optional(),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      pathMethod: z.enum<string, any>(HTTP_METHODS),
+      pathRoute: z.string().min(1),
+      pathDescription: z.string().min(1),
+      pathRouteParams: z.array(z.object({
+        param: z.string().min(1),
+        type: z.string().min(1),
+        description: z.string().min(1),
+      })),
+      pathRouteQuery: z.array(z.object({
+        param: z.string().min(1),
+        type: z.string().min(1),
+        description: z.string().min(1),
+      })),
+      pathAuth: z.array(z.string().uuid()),
+      pathRequest: z.array(z.string().uuid()),
+      pathResponse: z.array(z.string().uuid()),
+    })
 
-    if (indexToUpdate !== undefined) groupToUpdate.apiPaths[indexToUpdate] = payload
-    else groupToUpdate.apiPaths.push(payload)
+    const payloadParsed = { ...payload, id: payload.id || undefined }
+
+    const validationResponse = schema.safeParse(payloadParsed)
+
+    if (!validationResponse.success) {
+      addToast({ message: 'Please fill in all fields on the form', type: 'error' })
+      return { success: false }
+    }
+
+    const groupToUpdate = apiPathGroups.find(group => group.id === groupId)
+
+    if (!groupToUpdate) return { success: false }
+
+    if (!payload.id) {
+      groupToUpdate.apiPaths.push({ ...payload, id: uuidv4() })
+    }
+    else {
+      const pathIndexToUpdate = groupToUpdate.apiPaths.findIndex(path => path.id === payload.id)
+
+      if (pathIndexToUpdate === -1) return { success: false }
+
+      groupToUpdate.apiPaths[pathIndexToUpdate] = payload
+    }
 
     setApiPathGroups([
       ...apiPathGroups,

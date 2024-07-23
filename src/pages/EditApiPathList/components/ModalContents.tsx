@@ -131,8 +131,11 @@ const MultipleFields: React.FC<T.MultipleFieldsProps> = ({
   )
 }
 
-export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
-  const { models } = useApiDocStorage()
+export const PathDataModalContents: React.FC<T.PathDataModalContents> = ({
+  id,
+  closeModal,
+}) => {
+  const { models, saveOrUpdatePath } = useApiDocStorage()
 
   const {
     pathFormData,
@@ -156,6 +159,14 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
     pathResponse,
   } = pathFormData
 
+  const onSubmitForm = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const { success } = saveOrUpdatePath()
+
+    if (success) closeModal()
+  }, [])
+
   useEffect(() => {
     const paramsInRoute = extractTextsBetweenBraces(pathRoute)
 
@@ -165,7 +176,7 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
   }, [pathRoute])
 
   return (
-    <>
+    <form onSubmit={onSubmitForm}>
       <Select
         label="Method*"
         placeholder={HTTP_METHODS[0]}
@@ -281,6 +292,6 @@ export const PathDataModalContents: React.FC<T.PathDataModalContents> = () => {
       />
 
       <Button text="SUBMIT" height="medium" isFullWidth />
-    </>
+    </form>
   )
 }

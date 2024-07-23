@@ -3,6 +3,9 @@ import React, { useCallback, useState } from 'react'
 import { ArrowDown, ArrowRight, Edit, Trash } from '../../../components/Icons'
 import * as T from '../types'
 import { getModelById } from '../../../utils/getModelById'
+import { Modal } from '../../../components/Modal'
+import { PathDataModalContents } from './ModalContents'
+import { PathFormProvider } from '../../../hooks/PathFormContext'
 
 const PathItemSection: React.FC<T.PathItemSectionProps> = ({
   method,
@@ -86,6 +89,7 @@ const PathItemPayloadSection: React.FC<T.PathItemPayloadSectionProps> = ({
 
 export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
   pathData: {
+    id,
     pathMethod,
     pathRoute,
     pathDescription,
@@ -96,7 +100,17 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
     pathResponse,
   },
 }) => {
+  const [modalIsOpened, setModalIsOpened] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+
+  const toggleModalIsOpened = useCallback(() => {
+    setModalIsOpened(!modalIsOpened)
+  }, [modalIsOpened])
+
+  const closeModal = useCallback(() => {
+    document.body.classList.remove('no-scroll')
+    setModalIsOpened(false)
+  }, [])
 
   const toggleIsOpen = useCallback(() => {
     setIsOpen(!isOpen)
@@ -138,7 +152,7 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
         isOpen && (
           <div className="path_content_body">
             <div className="path_edit_delete_options">
-              <button className="path_item_edit">
+              <button className="path_item_edit" onClick={toggleModalIsOpened}>
                 <Edit size={20} />
               </button>
 
@@ -185,6 +199,19 @@ export const PathItemContrainer: React.FC<T.PathItemContrainerProps> = ({
               payloads={pathResponseModels}
             />
           </div>
+        )
+      }
+
+      {
+        modalIsOpened && (
+          <Modal
+            title={'Path Data'}
+            onClose={closeModal}
+          >
+            <PathFormProvider>
+              <PathDataModalContents id={id} closeModal={closeModal} />
+            </PathFormProvider>
+          </Modal>
         )
       }
     </div>

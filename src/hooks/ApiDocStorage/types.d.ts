@@ -15,9 +15,8 @@ type ApiDocStorageContextProps = {
   saveOrUpdatePathGroup(payload: Omit<ApiPathGroup, 'apiPaths'>): SuccessResponseType
   removePathGroupFromList(id: string): void
   saveOrUpdatePath(
-    groupIndex: number,
+    groupId: string,
     payload: ApiPathData,
-    indexToUpdate?: number
   ): SuccessResponseType
   removePathFromList(groupIndex: number, indexToRemove: number): void
 }
@@ -67,6 +66,7 @@ export type ApiPathGroup = {
 }
 
 export type ApiPathData = {
+  id: string
   pathMethod: HttpMethods
   pathRoute: string
   pathDescription: string

@@ -9,10 +9,10 @@ import { Button } from '../../components/Button'
 import { PageTitle } from '../../components/PageTitle'
 import { PathGroupContainer } from './components/PathGroupContainer'
 import { Modal } from '../../components/Modal'
-import { PathFormProvider } from '../../hooks/PathFormContext'
 import { useApiDocStorage } from '../../hooks/ApiDocStorage'
 import * as T from './types'
 import './styles.css'
+import { PathFormProvider } from '../../hooks/PathFormContext'
 
 const MODAL_CONTENTS: T.ModalContentsProps[] = [
   {

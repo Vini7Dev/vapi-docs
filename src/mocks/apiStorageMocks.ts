@@ -23,6 +23,7 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
     groupName: 'Users',
     apiPaths: [
       {
+        id: uuidv4(),
         pathMethod: 'GET',
         pathRoute: '/users',
         pathDescription: 'List all users',
@@ -41,6 +42,7 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
         pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       },
       {
+        id: uuidv4(),
         pathMethod: 'POST',
         pathRoute: '/users',
         pathDescription: 'Create user',
@@ -51,6 +53,7 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
         pathResponse: [RESPONSES_MOCK[0].id, RESPONSES_MOCK[1].id],
       },
       {
+        id: uuidv4(),
         pathMethod: 'PUT',
         pathRoute: '/users/{id}',
         pathDescription: 'Update user',
@@ -72,6 +75,7 @@ export const PATH_GROUPS_MOCK: ADST.ApiPathGroup[] = [
     groupName: 'Posts',
     apiPaths: [
       {
+        id: uuidv4(),
         pathMethod: 'GET',
         pathRoute: '/posts',
         pathDescription: 'List all posts',

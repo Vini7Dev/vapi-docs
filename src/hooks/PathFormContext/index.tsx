@@ -3,19 +3,22 @@ import React, { PropsWithChildren, createContext, useCallback, useContext, useSt
 import * as ADST from '../ApiDocStorage/types'
 import * as T from './types'
 
+const EMPTY_FORM_VALUES: ADST.ApiPathData = {
+  id: '',
+  pathMethod: 'GET',
+  pathRoute: '',
+  pathDescription: '',
+  pathRouteParams: [],
+  pathRouteQuery: [],
+  pathAuth: [],
+  pathRequest: [],
+  pathResponse: [],
+}
+
 const PathFormContext = createContext<T.PathFormContextProps>({} as T.PathFormContextProps)
 
 export const PathFormProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [pathFormData, setPathFormData] = useState<ADST.ApiPathData>({
-    pathMethod: 'GET',
-    pathRoute: '',
-    pathDescription: '',
-    pathRouteParams: [],
-    pathRouteQuery: [],
-    pathAuth: [],
-    pathRequest: [],
-    pathResponse: [],
-  })
+  const [pathFormData, setPathFormData] = useState<ADST.ApiPathData>(EMPTY_FORM_VALUES)
 
   const updateFormDataField = useCallback((
     fieldName: keyof ADST.ApiPathData,
